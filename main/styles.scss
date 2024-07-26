@@ -1,0 +1,83 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+:root{
+  --dark-theme-color:#222831;
+  --light-theme-color:#EEEEEE;
+}
+html{
+  font-size: 10px;
+}
+body{
+  font-size: 1.6rem;
+  font-family: "Noto Sans", sans-serif;
+  height: 100vh;
+  overflow: scroll;
+  & ::-webkit-scrollbar{
+    display: none;
+  }
+
+  /*ligt theme styles*/
+  &.light{
+    background-color: var(--light-theme-color);
+    color: var(--dark-theme-color);
+    & .signature-page{
+      background-color: var(--dark-theme-color);
+      --svg-color:var(--light-theme-color);
+    }
+  }
+
+  /*dark theme styles*/
+  &.dark{
+    background-color: var(--dark-theme-color);
+    color: var(--light-theme-color);
+    & .signature-page{
+      background-color:var(--light-theme-color);
+      --svg-color:var(--dark-theme-color);
+    }
+  }
+}
+.particles-js-container{
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+.signature-page{
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  clip-path: polygon(0% 0%, 0 100%, 50% 100%, 100% 100%, 100% 0);
+  animation: clipAni 2s ease forwards;
+  animation-delay: 3.3s;
+  pointer-events: none;
+  z-index: 2;
+}
+.signature{
+  width: clamp(172px,110px + 21.41vw,420px);
+}
+
+//keyframes
+@keyframes clipAni{
+  0%{
+    clip-path: polygon(0% 0%, 0 100%, 50% 100%, 100% 100%, 100% 0);
+  }
+  20%{
+    clip-path: polygon(0% 0%, 0 50%, 50% 100%, 100% 50%, 100% 0);
+  }
+  60%{
+    clip-path: polygon(0% 0%, 0 0, 50% 0, 100% 0, 100% 0);
+  }
+  100%{
+    clip-path: polygon(0% 0%, 0 0, 50% 0, 100% 0, 100% 0);
+  }
+}
