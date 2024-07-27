@@ -114,9 +114,18 @@ function displayParticles(speed,color){
   });
 };
 
+function calculateIntialAni(){
+  const signatureContainer = document.querySelector('.signature-container');
+  signatureContainer.removeAttribute('style');
+  const pathEl = signatureContainer.querySelector('svg > path');
+  pathEl.style = `--length:${Math.round(pathEl.getTotalLength())}`;  
+  signatureContainer.querySelector('svg').style = `--svg-width:${signatureContainer.querySelector('svg').clientWidth}px;`;
+};
+
+
 
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
-
+calculateIntialAni()
 window.addEventListener('resize',()=>{
   const bodyEl = document.querySelector('body');
   const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
@@ -124,4 +133,7 @@ window.addEventListener('resize',()=>{
   pJS.particles.color.value = particlesColor;
   pJS.particles.line_linked.color = particlesColor;
   pJS.fn.particlesRefresh();
+
+  const signatureContainer = document.querySelector('.signature-container');
+  signatureContainer.querySelector('svg').style = `--svg-width:${signatureContainer.querySelector('svg').clientWidth}px;`;
 });
