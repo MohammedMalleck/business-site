@@ -122,10 +122,27 @@ function calculateIntialAni(){
   signatureContainer.querySelector('svg').style = `--svg-width:${signatureContainer.querySelector('svg').clientWidth}px;`;
 };
 
+function handleThemeChange(){
+  const audioEl = document.querySelector('audio');
+  const bodyEl = document.querySelector('body');
+  bodyEl.className = document.querySelector('body').className === 'dark' ?  'light' : 'dark';
+  const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
+  const pJS = window.pJSDom[0].pJS;
+  pJS.particles.color.value = particlesColor;
+  pJS.particles.line_linked.color = particlesColor;
+  pJS.fn.particlesRefresh();
+  localStorage.setItem('theme',JSON.stringify(bodyEl.className));
+  //play the sound effect 
+  audioEl.pause();
+  audioEl.currentTime = 0;
+  audioEl.play();
+};
+
 
 
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
-calculateIntialAni()
+calculateIntialAni();
+
 window.addEventListener('resize',()=>{
   const bodyEl = document.querySelector('body');
   const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
@@ -137,3 +154,8 @@ window.addEventListener('resize',()=>{
   const signatureContainer = document.querySelector('.signature-container');
   signatureContainer.querySelector('svg').style = `--svg-width:${signatureContainer.querySelector('svg').clientWidth}px;`;
 });
+
+document.querySelector('.theme-icon-container').addEventListener('click',handleThemeChange);
+
+document.querySelector('.signature-page').addEventListener('animationstart',document.querySelector('main').removeAttribute('style')
+);

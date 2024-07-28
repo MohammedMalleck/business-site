@@ -19,7 +19,7 @@ html {
 body {
   font-size: 1.6rem;
   font-family: "Noto Sans", sans-serif;
-  height: 100vh;
+  height: 100%;
   overflow: scroll;
   /*ligt theme styles*/
   /*dark theme styles*/
@@ -30,27 +30,40 @@ body ::-webkit-scrollbar {
 body.light {
   background-color: var(--light-theme-color);
   color: var(--dark-theme-color);
+  --svg-color:var(--dark-theme-color);
 }
 body.light .signature-page {
   background-color: var(--dark-theme-color);
-  --svg-color:var(--light-theme-color);
+  --loading-screen-color:var(--light-theme-color);
+}
+body.light header .theme-icon-container svg .cover-circle {
+  transform: translate(0%);
+}
+body.light header .theme-icon-container svg .shape-icon {
+  animation: moveToMoon 0.8s ease forwards;
+}
+body.light header .theme-icon-container svg g > circle {
+  transform: scale(0);
 }
 body.dark {
   background-color: var(--dark-theme-color);
   color: var(--light-theme-color);
+  --svg-color:var(--light-theme-color);
 }
 body.dark .signature-page {
   background-color: var(--light-theme-color);
-  --svg-color:var(--dark-theme-color);
+  --loading-screen-color:var(--dark-theme-color);
 }
-
-.particles-js-container {
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-  pointer-events: none;
+body.dark header .theme-icon-container svg .cover-circle {
+  transform: translate(100%);
+}
+body.dark header .theme-icon-container svg .shape-icon {
+  animation: moveToSun 0.5s ease forwards;
+}
+body.dark header .theme-icon-container svg g > circle {
+  transform: scale(0);
+  animation: showRays 0.3s ease forwards;
+  animation-delay: calc(var(--circle-num) * 0.05s);
 }
 
 .signature-page {
@@ -71,7 +84,7 @@ body.dark .signature-page {
 
 .signature-container {
   display: flex;
-  color: var(--svg-color);
+  color: var(--loading-screen-color);
 }
 .signature-container svg {
   width: clamp(50px, 20px + 4.7vw, 100px);
@@ -83,7 +96,7 @@ body.dark .signature-page {
   animation-delay: 1.5s;
 }
 .signature-container svg path {
-  stroke: var(--svg-color);
+  stroke: var(--loading-screen-color);
   stroke-dasharray: calc(var(--length) + 10);
   stroke-dashoffset: calc(var(--length) + 10);
   animation: strokeZeroAni 1s ease forwards;
@@ -100,6 +113,56 @@ body.dark .signature-page {
   transform: translateX(-120%);
   animation: nameMoveAni 1s ease forwards;
   animation-delay: 1.5s;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+main .particles-js-container {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+
+header {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 7px;
+}
+header .theme-icon-container {
+  width: clamp(22px, 20px + 0.7vw, 35px);
+  aspect-ratio: 1;
+  display: flex;
+}
+header .theme-icon-container svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  cursor: pointer;
+  display: flex;
+  transform: rotate(40deg);
+  z-index: 2;
+}
+header .theme-icon-container svg rect {
+  width: 100%;
+  height: 100%;
+}
+header .theme-icon-container svg .cover-circle {
+  transition: transform 0.5s ease;
+}
+header .theme-icon-container svg .shape-icon, header .theme-icon-container svg g > circle {
+  fill: var(--svg-color);
+  transform-origin: center center;
 }
 
 @keyframes clipAni {
@@ -124,5 +187,32 @@ body.dark .signature-page {
 @keyframes nameMoveAni {
   to {
     transform: translateX(0%);
+  }
+}
+@keyframes moveToSun {
+  to {
+    transform: rotate(90deg) scale(0.55);
+  }
+}
+@keyframes showRays {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes moveToMoon {
+  0% {
+    transform: rotate(90deg) scale(0.55);
+  }
+  50% {
+    transform: rotate(-15deg) scale(1);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
   }
 }
