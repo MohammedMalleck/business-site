@@ -10,29 +10,55 @@
 :root {
   --dark-theme-color:#222831;
   --light-theme-color:#EEEEEE;
+  --hover-color:#76ABAE;
+  --bold-font:500;
+  --light-font:300;
 }
 
 html {
   font-size: 10px;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/*mixins*/
+/*common styles*/
+.personal-icons > a::after, header .theme-icon-container::after {
+  white-space: nowrap;
+  position: absolute;
+  font-size: clamp(0.9rem, 0.43rem + 0.74vw, 1.2rem);
+  font-weight: var(--bold-font);
+  padding: min(10%, 3px) min(30%, 8.5px);
+  border-radius: 100vw;
+  background-color: var(--dark-theme-color);
+  color: var(--light-theme-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 2;
+}
+body.dark .personal-icons > a::after, body.dark header .theme-icon-container::after, header body.dark .theme-icon-container::after {
+  background-color: var(--light-theme-color);
+  color: var(--dark-theme-color);
+}
+
 body {
   font-size: 1.6rem;
   font-family: "Noto Sans", sans-serif;
   height: 100%;
-  overflow: scroll;
   /*ligt theme styles*/
   /*dark theme styles*/
-}
-body ::-webkit-scrollbar {
-  display: none;
 }
 body.light {
   background-color: var(--light-theme-color);
   color: var(--dark-theme-color);
   --svg-color:var(--dark-theme-color);
 }
-body.light .signature-page {
+body.light .loading-page {
   background-color: var(--dark-theme-color);
   --loading-screen-color:var(--light-theme-color);
 }
@@ -45,12 +71,24 @@ body.light header .theme-icon-container svg .shape-icon {
 body.light header .theme-icon-container svg g > circle {
   transform: scale(0);
 }
+body.light .img-personal-container {
+  background-color: var(--dark-theme-color);
+}
+body.light .personal-icons a svg:hover {
+  filter: brightness(160%);
+}
+body.light .info-stroke path {
+  stroke: var(--dark-theme-color);
+}
+body.light .theme-icon-container::after {
+  content: "Switch to Dark Mode";
+}
 body.dark {
   background-color: var(--dark-theme-color);
   color: var(--light-theme-color);
   --svg-color:var(--light-theme-color);
 }
-body.dark .signature-page {
+body.dark .loading-page {
   background-color: var(--light-theme-color);
   --loading-screen-color:var(--dark-theme-color);
 }
@@ -65,50 +103,65 @@ body.dark header .theme-icon-container svg g > circle {
   animation: showRays 0.3s ease forwards;
   animation-delay: calc(var(--circle-num) * 0.05s);
 }
+body.dark .img-personal-container {
+  background-color: var(--light-theme-color);
+}
+body.dark .personal-icons a svg:hover {
+  filter: brightness(90%);
+}
+body.dark .info-stroke path {
+  stroke: var(--light-theme-color);
+}
+body.dark .theme-icon-container::after {
+  content: "Switch to Light Mode";
+}
 
-.signature-page {
+.loading-page {
   position: fixed;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   clip-path: polygon(0% 0%, 0 100%, 50% 100%, 100% 100%, 100% 0);
   animation: clipAni 2s ease forwards;
   animation-delay: 3s;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
-.signature-container {
+.loading-container {
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: start;
   color: var(--loading-screen-color);
 }
-.signature-container svg {
+.loading-container svg {
   width: clamp(50px, 20px + 4.7vw, 100px);
   aspect-ratio: 1;
-  display: flex;
   overflow: visible;
   transform: translateX(var(--svg-width));
   animation: nameMoveAni 1s ease forwards;
   animation-delay: 1.5s;
 }
-.signature-container svg path {
+.loading-container svg path {
   stroke: var(--loading-screen-color);
   stroke-dasharray: calc(var(--length) + 10);
   stroke-dashoffset: calc(var(--length) + 10);
   animation: strokeZeroAni 1s ease forwards;
   animation-delay: 0.5s;
 }
-.signature-container div {
+.loading-container div {
   margin-top: auto;
   font-size: clamp(3rem, 2rem + 2.35vw, 5rem);
   font-weight: 500;
   overflow: hidden;
 }
-.signature-container div .name-part {
+.loading-container div .name-part {
   line-height: 0.8;
   transform: translateX(-120%);
   animation: nameMoveAni 1s ease forwards;
@@ -117,8 +170,12 @@ body.dark header .theme-icon-container svg g > circle {
 
 main {
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: start;
   height: 100vh;
   position: relative;
+  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
 }
 main .particles-js-container {
   position: fixed;
@@ -128,6 +185,45 @@ main .particles-js-container {
   left: 0px;
   pointer-events: none;
 }
+main .navigation-bar {
+  font-weight: var(--light-font);
+  position: fixed;
+  font-size: clamp(1.1rem, 1rem + 0.428vw, 1.55rem);
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+main .navigation-bar a {
+  transition: transform 0.15s ease;
+}
+main .navigation-bar a.active {
+  transform: scale(1.1) translateY(-25%);
+}
+main .navigation-bar li {
+  white-space: nowrap;
+  cursor: pointer;
+}
+main .navigation-bar .arrow {
+  font-size: clamp(1.1rem, 1rem + 0.428vw, 1.55rem);
+  top: 100%;
+  position: absolute;
+  transition: left 0.15s ease, bottom 0.15s ease;
+}
+main .navigation-bar:has(a:nth-child(1).active) .arrow {
+  left: var(--left-arrow-1);
+}
+main .navigation-bar:has(a:nth-child(2).active) .arrow {
+  left: var(--left-arrow-2);
+}
+main .navigation-bar:has(a:nth-child(3).active) .arrow {
+  left: var(--left-arrow-3);
+}
+main .navigation-bar:has(a:nth-child(4).active) .arrow {
+  left: var(--left-arrow-4);
+}
 
 header {
   position: fixed;
@@ -135,14 +231,20 @@ header {
   right: 0px;
   left: 0px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: end;
-  padding: 7px;
+  padding: 10px;
+  z-index: 2;
 }
 header .theme-icon-container {
-  width: clamp(22px, 20px + 0.7vw, 35px);
+  width: var(--theme-icon-size);
   aspect-ratio: 1;
+  position: relative;
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: start;
 }
 header .theme-icon-container svg {
   width: 100%;
@@ -150,8 +252,10 @@ header .theme-icon-container svg {
   overflow: visible;
   cursor: pointer;
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: start;
   transform: rotate(40deg);
-  z-index: 2;
 }
 header .theme-icon-container svg rect {
   width: 100%;
@@ -163,6 +267,179 @@ header .theme-icon-container svg .cover-circle {
 header .theme-icon-container svg .shape-icon, header .theme-icon-container svg g > circle {
   fill: var(--svg-color);
   transform-origin: center center;
+}
+header .theme-icon-container:hover::after {
+  opacity: 1;
+  transform: translate(0%, -50%);
+}
+header .theme-icon-container::after {
+  right: 150%;
+  top: 50%;
+  transform: translate(10%, -50%);
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: start;
+  overflow: scroll;
+  width: 100%;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  scroll-margin-top: calc(20px + var(--theme-icon-size));
+}
+.content-container::-webkit-scrollbar {
+  display: none;
+}
+
+.content-container section:nth-child(1) {
+  padding-top: calc(20px + var(--theme-icon-size));
+}
+
+.content-container section {
+  scroll-snap-align: start;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content-container section > div {
+  z-index: 2;
+}
+
+.img-personal-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  --size:clamp(100px,calc(80px + 7.82vw),200px);
+  width: var(--size);
+  height: var(--size);
+  padding: 0.5%;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: imageAni 0.2s ease forwards;
+  animation-delay: 5.7s;
+  font-size: clamp(1rem, 0.8rem + 0.625vw, 1.6rem);
+  transform: translateY(1%);
+  transition: background-color 0.2s ease;
+}
+.img-personal-container img {
+  width: var(--size);
+  height: var(--size);
+  object-fit: contain;
+}
+
+.personal-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: min(10%, 25.5px);
+  transform: scale(1.3);
+  opacity: 0;
+  filter: blur(20px);
+  gap: clamp(4.5px, 1px + 0.39vw, 6px);
+  animation: blurEffect 1.2s ease forwards;
+  animation-delay: 4.5s;
+  position: relative;
+}
+.personal-info-container h2 {
+  font-weight: var(--bold-font);
+  font-size: clamp(2rem, 1.6rem + 1.17vw, 3rem);
+}
+.personal-info-container h4 {
+  font-size: clamp(1.5rem, 1.15rem + 0.9375vw, 2.2rem);
+  font-weight: var(--light-font);
+}
+.personal-info-container p {
+  font-size: clamp(1.3rem, 1.1rem + 0.55vw, 1.8rem);
+  font-weight: var(--light-font);
+}
+
+.info-stroke {
+  --stroke-width: 1px;
+  position: absolute;
+  height: var(--stroke-width);
+  width: 50%;
+}
+.info-stroke.top-left, .info-stroke.top-right {
+  bottom: 100%;
+}
+.info-stroke.bottom-left, .info-stroke.bottom-right {
+  top: 100%;
+}
+.info-stroke.top-left, .info-stroke.bottom-left {
+  left: 0px;
+}
+.info-stroke.top-right, .info-stroke.bottom-right {
+  right: 0px;
+}
+.info-stroke path {
+  stroke-width: var(--stroke-width);
+  stroke-dasharray: var(--length);
+}
+.info-stroke.top-left path, .info-stroke.bottom-left path {
+  stroke-dashoffset: calc(-1 * var(--length));
+  --first:calc(-1* var(--length));
+  animation: introStrokeAni 1s forwards;
+  animation-delay: 5s;
+}
+.info-stroke.top-right path, .info-stroke.bottom-right path {
+  stroke-dashoffset: var(--length);
+  --first:var(--length);
+  animation: introStrokeAni 1s forwards;
+  animation-delay: 5s;
+}
+
+.personal-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: min(2.5%, 31px);
+  gap: clamp(15px, 10px + 1.015vw, 23px);
+}
+.personal-icons > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: clamp(15px, 10px + 1.17vw, 25px);
+  aspect-ratio: 1;
+  opacity: 0;
+  animation: showOpacity 1s ease forwards;
+  animation-delay: 5.8s;
+  position: relative;
+}
+.personal-icons > a:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0%);
+}
+.personal-icons > a::after {
+  top: 120%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+}
+.personal-icons > a:nth-child(1)::after {
+  content: "LinkdIn Profile";
+}
+.personal-icons > a:nth-child(2)::after {
+  content: "Upwork Profile";
+}
+.personal-icons > a:nth-child(3)::after {
+  content: "Github Profile";
+}
+.personal-icons > a svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--svg-color);
+  transition: filter 0.15s ease;
+}
+.personal-icons > a svg.upwork {
+  transform: translateY(5%);
 }
 
 @keyframes clipAni {
@@ -214,5 +491,56 @@ header .theme-icon-container svg .shape-icon, header .theme-icon-container svg g
   }
   100% {
     transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes imageAni {
+  to {
+    box-shadow: 0px 0.5em 0px var(--hover-color);
+    transform: translateY(0%);
+  }
+}
+@keyframes blurEffect {
+  0% {
+    transform: scale(1.3);
+    filter: blur(20px);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1.1);
+    filter: blur(15px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    filter: blur(10px);
+    opacity: 0.9;
+  }
+  80% {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+@keyframes showOpacity {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes introStrokeAni {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: var(--first);
+  }
+  50% {
+    stroke-dashoffset: 0px;
+  }
+  100% {
+    stroke-dashoffset: 0px;
+    opacity: 0;
   }
 }
