@@ -45,6 +45,9 @@ a{
     background-color: var(--light-theme-color);
     color: var(--dark-theme-color);
   }
+  @media (max-width: 500px){ 
+    display: none;
+  }
 }
 body{
   font-size: 1.6rem;
@@ -85,6 +88,11 @@ body{
     & .theme-icon-container::after{
       content: 'Switch to Dark Mode';
     };
+    & .navigation-bar{
+      background-color: var(--dark-theme-color);
+      box-shadow: 0px 0px 1em rgba(238, 238, 238, 1);
+      color: var(--light-theme-color);
+    }
   }
 
   /*dark theme styles*/
@@ -123,6 +131,11 @@ body{
     & .theme-icon-container::after{
       content: 'Switch to Light Mode';
     };
+    & .navigation-bar{
+      background-color: var(--light-theme-color);
+      box-shadow: 0px 0px 1em  rgba(34, 40, 49, 1);
+      color: var(--dark-theme-color);
+    }
   }
 }
 .loading-page{
@@ -191,17 +204,23 @@ main{
     font-weight: var(--light-font);
     position: fixed;
     font-size: clamp(1.1rem, 1rem + 0.428vw, 1.55rem);
-    bottom: 25px;
+    padding:.5em  1.5em;
+    border-radius: 100vw;
+    bottom: 2%;
     left: 50%;
     transform: translate(-50%,0%);
-    display: flex;
+    @include flex(flex);
     list-style: none;
     gap: 30px;
-
+    transition:background-color ease .2s , color .2s ease;
     & a{
-      transition:transform .15s ease;
+      transition:transform .2s ease;
       &.active{
         transform: scale(1.1) translateY(-25%);
+      }
+
+      &:not(.active):hover{
+        transform: scale(1.03) translateY(-2%);    
       }
     }
 
@@ -212,9 +231,9 @@ main{
 
     & .arrow{
       font-size: clamp(1.1rem, 1rem + 0.428vw, 1.55rem);
-      top: 100%;
+      top: 60%;
       position: absolute;
-      transition: left .15s ease , bottom .15s ease;
+      transition: left .15s ease;
     }
 
     &:has(a:nth-child(1).active) .arrow{
@@ -287,8 +306,8 @@ header{
   overflow: scroll;
   width: 100%;
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
-  scroll-margin-top:calc(20px + var(--theme-icon-size)) ;
+  scroll-margin-top:calc(20px + var(--theme-icon-size));
+  gap: 10%;
   &::-webkit-scrollbar{
     display: none;
   }
@@ -297,7 +316,6 @@ header{
   padding-top:calc(20px + var(--theme-icon-size));
 }
 .content-container section{
-  scroll-snap-align: start;
   height: fit-content;
   @include flex(column,center,center);
 

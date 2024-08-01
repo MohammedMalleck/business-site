@@ -1,5 +1,8 @@
 import './styles.scss';
 
+const scrollData = new Map();
+const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin : "-50% 0%" , threshold : 0});
+
 function displayParticles(speed,color){
   particlesJS("particles-js",
     {
@@ -143,27 +146,42 @@ function handleThemeChange(){
   audioEl.play();
 };
 
-function handleArrowPosition(){
+function handleScroll(){
   const navigationBarEl = document.querySelector('.navigation-bar');
   const {left : navigationBarElLeft,width : navigationBarElWidth} = navigationBarEl.getBoundingClientRect();
   const arrowEl = document.querySelector('.arrow');
-  let variables = ' ';
-  navigationBarEl.querySelectorAll('a').forEach((menuLinkEl,index) => {
+  navigationBarEl.querySelectorAll('a').forEach((menuLinkEl) => {
     const {left,width} = menuLinkEl.getBoundingClientRect();
     const correctLeftValue = left - navigationBarElLeft;
     const leftValuePx = Math.round((correctLeftValue + (width / 2)) - (arrowEl.clientWidth / 2));
-    const leftValuePercentage = (leftValuePx / navigationBarElWidth) * 100;
-    variables +=  `--left-arrow-${index + 1}:${leftValuePercentage}%;`;
+    const leftValuePercentage = (leftValuePx / navigationBarElWidth) * 100 + "%";
+    scrollData.set(menuLinkEl.textContent.trim().toLowerCase(),leftValuePercentage);
   });
 
-  document.querySelector('main').style = variables;
+  arrowEl.style.left = scrollData.get('home');
+
+  //set scroll vlaues of sections
+  //& observe the sections 
+  document.querySelectorAll('.content-container section').forEach(sectionEl => {
+    observer.observe(sectionEl);
+  });
+
+
 }
-
-
-
+function handleObserver(entries){
+  entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const sectionEl = entry.target;
+        const sectionName = sectionEl.id;
+        document.querySelector('.arrow').style.left = scrollData.get(sectionName);
+        document.querySelector('.navigation-bar a.active').classList.remove('active');
+        document.querySelector(`.navigation-bar a.${sectionName}-menu`).classList.add('active');
+      }
+  });
+};
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
 initialCalculations();
-handleArrowPosition();
+handleScroll();
 
 window.addEventListener('resize',()=>{
   const bodyEl = document.querySelector('body');
