@@ -24,12 +24,14 @@ a {
   color: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 button {
   background-color: inherit;
   border: none;
   -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 /*mixins*/
@@ -196,6 +198,7 @@ main {
   align-items: stretch;
   justify-content: start;
   height: 100vh;
+  height: 100svh;
   position: relative;
   --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
 }
