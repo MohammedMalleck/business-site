@@ -2,6 +2,7 @@ import './styles.scss';
 
 const scrollData = new Map();
 const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin : "-50% 0%" , threshold : 0});
+const previousViewportHeight = window.innerHeight;
 
 function displayParticles(speed,color){
   particlesJS("particles-js",
@@ -184,12 +185,16 @@ initialCalculations();
 handleScroll();
 
 window.addEventListener('resize',()=>{
-  const bodyEl = document.querySelector('body');
-  const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
-  const pJS = window.pJSDom[0].pJS;
-  pJS.particles.color.value = particlesColor;
-  pJS.particles.line_linked.color = particlesColor;
-  pJS.fn.particlesRefresh();
+  //re rearrange plarticles only if the change in height is not in 
+  //touch devices(it becuase they have a adress bar)
+  if(!(navigator.maxTouchPoints > 0 && (previousViewportHeight > window.innerHeight || previousViewportHeight < window.innerHeight))){
+    const bodyEl = document.querySelector('body');
+    const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
+    const pJS = window.pJSDom[0].pJS;
+    pJS.particles.color.value = particlesColor;
+    pJS.particles.line_linked.color = particlesColor;
+    pJS.fn.particlesRefresh();
+  }
   //re-assign necessary calculations on reszing screen
   initialCalculations();
 });
@@ -199,3 +204,4 @@ document.querySelector('.theme-icon-container').addEventListener('click',handleT
 document.querySelector('.loading-page').addEventListener('animationstart',(e)=>{
   if(e.animationName === 'clipAni') document.querySelector('main').style.visibility = 'visible';
 });
+

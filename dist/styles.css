@@ -383,9 +383,19 @@ header .theme-icon-container::after {
   font-weight: var(--bold-font);
   font-size: clamp(2rem, 1.6rem + 1.17vw, 3rem);
 }
-.personal-info-container h4 {
+.personal-info-container div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
   font-size: clamp(1.5rem, 1.15rem + 0.9375vw, 2.2rem);
   font-weight: var(--light-font);
+}
+.personal-info-container div h4 {
+  font-size: inherit;
+  font-weight: inherit;
 }
 .personal-info-container p {
   font-size: clamp(1.3rem, 1.1rem + 0.55vw, 1.8rem);

@@ -366,9 +366,17 @@ header{
    font-size: clamp(2rem,calc(1.6rem + 1.17vw),3rem);
   }
 
-  & h4{
+  & div{
+    width: 100%;
+    @include flex(row,center,center);
+    gap: 2%;
     font-size:clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem);
     font-weight: var(--light-font);
+
+    & h4{
+      font-size: inherit;
+      font-weight: inherit;
+    }
   }
 
   & p{
