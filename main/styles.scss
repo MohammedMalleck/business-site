@@ -101,6 +101,9 @@ body{
       box-shadow: 0px 0px 1em rgba(238, 238, 238, 1);
       color: var(--light-theme-color);
     }
+    & .tooltip-bar{
+      background-color: var(--dark-theme-color);
+    }
   }
 
   /*dark theme styles*/
@@ -143,6 +146,9 @@ body{
       background-color: var(--light-theme-color);
       box-shadow: 0px 0px 1em  rgba(34, 40, 49, 1);
       color: var(--dark-theme-color);
+    }
+    & .tooltip-bar{
+      background-color: var(--light-theme-color);
     }
   }
 }
@@ -356,7 +362,7 @@ header{
   margin-top: min(10%,25.5px);
   transform: scale(1.3);
   opacity: 0;
-  filter: blur(20px);
+  filter: blur(0em);
   gap: clamp(4.5px,calc(1px + 0.39vw),6px);
   animation:blurEffect 1.2s ease forwards;
   animation-delay: 4.5s;
@@ -366,23 +372,32 @@ header{
    font-size: clamp(2rem,calc(1.6rem + 1.17vw),3rem);
   }
 
-  & div{
-    width: 100%;
-    @include flex(row,center,center);
-    gap: 2%;
-    font-size:clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem);
-    font-weight: var(--light-font);
-
     & h4{
-      font-size: inherit;
-      font-weight: inherit;
+      font-size:clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem);
+      clip-path: inset(0px 0px 0px 0px);
+      font-weight: var(--light-font);
+      & > div:not(.active){
+        display: none;
+      }
+      &.ani{
+        animation:hideText 2.5s ease forwards;
+        animation-delay: 8.5s;
+      }
     }
-  }
+  
 
   & p{
     font-size:clamp(1.3rem,calc(1.1rem + 0.55vw), 1.8rem);
     font-weight: var(--light-font);
   }
+}
+.tooltip-bar{
+  position: fixed;
+  font-size: clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem) ;
+  height:1.4em;
+  width: .12em;
+  z-index: 2;
+  opacity: 0;
 }
 .info-stroke{
   --stroke-width: 1px;
@@ -535,27 +550,27 @@ header{
 @keyframes blurEffect{
   0%{
     transform: scale(1.3);
-    filter: blur(20px);
+    filter: blur(1em);
     opacity: 0;  
   }
   30%{
     transform: scale(1.1);
-    filter: blur(15px);
+    filter: blur(.8em);
     opacity: 0.8;  
   }
   50%{
     transform: scale(1.05);
-    filter: blur(10px);
+    filter: blur(.5em);
     opacity: 0.9;
   }
   80%{
     transform: scale(1);
-    filter: blur(0px);
+    filter: blur(0em);
     opacity: 1;  
   }
   100%{
     transform: scale(1);
-    filter: blur(0px);
+    filter: blur(0em);
     opacity: 1;  
   }
 }
@@ -576,4 +591,18 @@ header{
   stroke-dashoffset:0px;
   opacity: 0;
  }
+}
+@keyframes hideText {
+  0%{
+    clip-path: inset(0px 0px 0px 0px);
+  }
+  50%{
+    clip-path: inset(0px var(--active-width) 0px 0px);
+  }
+  70%{
+    clip-path: inset(0px var(--active-width) 0px 0px);
+  }
+  100%{
+    clip-path: inset(0px 0px 0px 0px);
+  }
 }
