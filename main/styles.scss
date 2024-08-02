@@ -203,7 +203,6 @@ body{
 main{
   @include flex(row);
   height: 100vh;
-  height: 100svh;
   position: relative;
   --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
 
@@ -318,6 +317,7 @@ header{
 }
 .content-container{
   @include flex(column);
+  position: relative;
   overflow: scroll;
   width: 100%;
   scroll-behavior: smooth;
@@ -392,7 +392,7 @@ header{
   }
 }
 .tooltip-bar{
-  position: fixed;
+  position: absolute;
   font-size: clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem) ;
   height:1.4em;
   width: .12em;
