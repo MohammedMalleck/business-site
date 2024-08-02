@@ -1,8 +1,9 @@
 import './styles.scss';
 
-const scrollData = new Map();
-const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin : "-50% 0%" , threshold : 0});
-const previousViewportHeight = window.innerHeight;
+// const scrollData = new Map();
+// const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin : `0px 0px 0px 0px` , threshold : 0});
+const previousViewportWidth = window.innerWidth;
+
 
 function displayParticles(speed,color){
   particlesJS("particles-js",
@@ -22,7 +23,7 @@ function displayParticles(speed,color){
            "type": "circle",
            "stroke": {
              "width": 0,
-             "color": "#000000"
+             "color": color
            },
            "polygon": {
              "nb_sides": 5
@@ -123,7 +124,6 @@ function initialCalculations(){
   loadingContainer.removeAttribute('style');
   const pathEl = loadingContainer.querySelector('svg > path');
   pathEl.style = `--length:${Math.round(pathEl.getTotalLength())}`;  
-  loadingContainer.querySelector('svg').style = `--svg-width:${loadingContainer.querySelector('svg').clientWidth}px;`;
 
   document.querySelectorAll('.info-stroke path').forEach(pathEl => {
     pathEl.style = `--length:${pathEl.getTotalLength()}px;`;
@@ -141,10 +141,13 @@ function handleThemeChange(){
   pJS.particles.line_linked.color = particlesColor;
   pJS.fn.particlesRefresh();
   localStorage.setItem('theme',JSON.stringify(bodyEl.className));
-  //play the sound effect 
-  audioEl.pause();
-  audioEl.currentTime = 0;
-  audioEl.play();
+
+  if(!navigator.maxTouchPoints > 0){
+    //play the sound effect 
+    audioEl.pause();
+    audioEl.currentTime = 0;
+    audioEl.play();
+  }
 };
 
 function handleScroll(){
@@ -156,7 +159,7 @@ function handleScroll(){
     const correctLeftValue = left - navigationBarElLeft;
     const leftValuePx = Math.round((correctLeftValue + (width / 2)) - (arrowEl.clientWidth / 2));
     const leftValuePercentage = (leftValuePx / navigationBarElWidth) * 100 + "%";
-    scrollData.set(menuLinkEl.textContent.trim().toLowerCase(),leftValuePercentage);
+    scrollData.set(menuLinkEl.textContent.replace(/\s+/g, '').toLowerCase(),leftValuePercentage);
   });
 
   arrowEl.style.left = scrollData.get('home');
@@ -181,91 +184,31 @@ function handleObserver(entries){
   });
 };
 
-function handleTooltipBarPosition(){
-  const activeElInfo = document.querySelector('.personal-info-container > h4 > .active');
-  const {left,top,right,width} = activeElInfo.getBoundingClientRect();
-
-  document.querySelector('.tooltip-bar').style.setProperty("--left-end-offset",`${right}px`)
-  document.querySelector('.tooltip-bar').style.setProperty("--left-start-offset",`${left}px`)
-  document.querySelector('.tooltip-bar').style.top = `${top}px`;
-  document.querySelector('.personal-info-container > h4').style.setProperty("--active-width",`${width}px`);
-}
-
-function changeEl(){
-  const activeEl = document.querySelector('.personal-info-container > h4 > .active');
-  const nextElement = activeEl.nextElementSibling ? activeEl.nextElementSibling :document.querySelector(".personal-info-container > h4 > div:nth-child(1)");
-  activeEl.classList.remove("active");
-  nextElement.className = "active";
-  handleTooltipBarPosition();
-}
-
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
 initialCalculations();
-handleScroll();
+// handleScroll();
+setTimeout(()=>{
+  document.querySelector(".personal-info-container > h4").style = `--cursor-color:var(--cursor-theme-color);`;
+},6500)
 
 window.addEventListener('resize',()=>{
+
   //re rearrange plarticles only if the change in height is not in 
   //touch devices(it becuase they have a adress bar)
-  if(!(navigator.maxTouchPoints > 0 && (previousViewportHeight > window.innerHeight || previousViewportHeight < window.innerHeight))){
+  if(previousViewportWidth !== window.innerWidth){
     const bodyEl = document.querySelector('body');
     const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
     const pJS = window.pJSDom[0].pJS;
     pJS.particles.color.value = particlesColor;
     pJS.particles.line_linked.color = particlesColor;
     pJS.fn.particlesRefresh();
+    //re-assign necessary calculations on reszing screen
+    initialCalculations();
   }
-  //re-assign necessary calculations on reszing screen
-  initialCalculations();
-  handleTooltipBarPosition();
 });
 
 document.querySelector('.theme-icon-container').addEventListener('click',handleThemeChange);
 
 document.querySelector('.loading-page').addEventListener('animationstart',(e)=>{
   if(e.animationName === 'clipAni') document.querySelector('main').style.visibility = 'visible';
-});
-
-
-document.querySelector('.personal-info-container >  h4').addEventListener('animationstart',()=>{
-  const tooltipBarEl = document.querySelector(".tooltip-bar");
-  //left transition should be 1.25s(50% of 3s)
-  tooltipBarEl.style.transition = "opacity .5s ease , left 1.25s";
-  //reflow(getting a smooth left instead of jumping left)
-  tooltipBarEl.clientHeight;
-  tooltipBarEl.style.left = getComputedStyle(tooltipBarEl).getPropertyValue("--left-start-offset");
-  setTimeout(()=>{
-    tooltipBarEl.style.opacity = 0;
-    tooltipBarEl.style.transition = "opacity .75s ease";
-    changeEl();
-  },2500 * 0.5);
-
-  //move the tooltip to the new left start value without transition
-  setTimeout(()=>{
-    tooltipBarEl.style.left = getComputedStyle(tooltipBarEl).getPropertyValue("--left-start-offset");
-  },2500 * 0.69);
-  //move the tooltip to the new left end value with transition
-  setTimeout(()=>{
-    tooltipBarEl.style.opacity = 1;
-    tooltipBarEl.style.transition = "opacity .5s ease ,  left .6s";
-    tooltipBarEl.style.left = getComputedStyle(tooltipBarEl).getPropertyValue("--left-end-offset");
-  },2500 * 0.7);
-
-
-});
-
-document.querySelector('.personal-info-container').addEventListener('animationend',(e)=>{
-  const tooltipBarEl = document.querySelector(".tooltip-bar");
-  if(e.animationName === "hideText"){
-  e.target.className = "";
-  e.target.clientWidth;
-  e.target.className = "ani";
-  e.target.style.animationDelay = "3s";
-  }else{
-    setTimeout(()=>{
-      handleTooltipBarPosition();
-      tooltipBarEl.style.transition  = "opacity 2s ease"; 
-      tooltipBarEl.style.opacity  = 1;  
-      tooltipBarEl.style.left = getComputedStyle(tooltipBarEl).getPropertyValue("--left-end-offset");
-    },2000);
-  }
 });

@@ -2,11 +2,13 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-margin-top:calc(20px + var(--theme-icon-size));
 }
 :root{
-  --dark-theme-color:#222831;
-  --light-theme-color:#EEEEEE;
-  --hover-color:#76ABAE;
+  --dark-theme-color:rgba(34, 40, 49,1);
+  --light-theme-color:rgba(238, 238, 238,1);
+  --hover-color:rgba(118, 171, 174,1);
   --bold-font:500;
   --light-font:300;
 }
@@ -101,8 +103,8 @@ body{
       box-shadow: 0px 0px 1em rgba(238, 238, 238, 1);
       color: var(--light-theme-color);
     }
-    & .tooltip-bar{
-      background-color: var(--dark-theme-color);
+    & .personal-info-container > h4{
+      --cursor-theme-color:var(--dark-theme-color);
     }
   }
 
@@ -147,8 +149,8 @@ body{
       box-shadow: 0px 0px 1em  rgba(34, 40, 49, 1);
       color: var(--dark-theme-color);
     }
-    & .tooltip-bar{
-      background-color: var(--light-theme-color);
+    & .personal-info-container > h4{
+      --cursor-theme-color:var(--light-theme-color);
     }
   }
 }
@@ -168,13 +170,16 @@ body{
 .loading-container{
   @include flex(row);
   color: var(--loading-screen-color);
+  position: relative;
 
   & svg{
     width:clamp(50px,calc(20px + 4.7vw),100px);
     aspect-ratio:1;
     overflow: visible;
-    transform: translateX(var(--svg-width));
-    animation:nameMoveAni 1s ease forwards;
+    position: relative;
+    left:50%;
+    transform: translate(-50%,0%);
+    animation:nameCapitalAni 1s ease forwards;
     animation-delay: 1.5s;
 
     & path{
@@ -203,6 +208,7 @@ body{
 main{
   @include flex(row);
   height: 100vh;
+  height: 100svh;
   position: relative;
   --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
 
@@ -217,7 +223,7 @@ main{
   .navigation-bar{
     font-weight: var(--light-font);
     position: fixed;
-    font-size: clamp(1.1rem, 1rem + 0.428vw, 1.55rem);
+    font-size: clamp(1.1rem, 1rem + 0.43vw, 1.55rem);
     padding:.5em  1.5em;
     border-radius: 100vw;
     bottom: 2%;
@@ -244,7 +250,7 @@ main{
     }
 
     & .arrow{
-      font-size: clamp(1.1rem, 1rem + 0.428vw, 1.55rem);
+      font-size: clamp(1.1rem, 1rem + 0.43vw, 1.55rem);
       top: 60%;
       position: absolute;
       transition: left .15s ease;
@@ -317,12 +323,9 @@ header{
 }
 .content-container{
   @include flex(column);
-  position: relative;
-  overflow: scroll;
   width: 100%;
-  scroll-behavior: smooth;
-  scroll-margin-top:calc(20px + var(--theme-icon-size));
   gap: 10%;
+  overflow: hidden;
   &::-webkit-scrollbar{
     display: none;
   }
@@ -340,7 +343,7 @@ header{
 }
 .img-personal-container{
   @include flex(row,center,center);
-  --size:clamp(100px,calc(80px + 7.82vw),200px);
+  --size:clamp(100px,calc(80px + 7.8vw),200px);
   width: var(--size);
   height: var(--size);
   padding: .5%;
@@ -363,41 +366,42 @@ header{
   transform: scale(1.3);
   opacity: 0;
   filter: blur(0em);
-  gap: clamp(4.5px,calc(1px + 0.39vw),6px);
+  gap: clamp(4.5px,calc(1px + 0.4vw),6px);
   animation:blurEffect 1.2s ease forwards;
   animation-delay: 4.5s;
   position: relative;
   & h2{
    font-weight: var(--bold-font);
-   font-size: clamp(2rem,calc(1.6rem + 1.17vw),3rem);
+   font-size: clamp(2rem,calc(1.6rem + 1.2vw),3rem);
   }
 
-    & h4{
-      font-size:clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem);
-      clip-path: inset(0px 0px 0px 0px);
-      font-weight: var(--light-font);
-      & > div:not(.active){
-        display: none;
-      }
-      &.ani{
-        animation:hideText 2.5s ease forwards;
-        animation-delay: 8.5s;
-      }
-    }
+  & h4{
+    font-size:clamp(1.6rem,calc(1rem + 1vw), 2.4rem);
+    position:relative;
+    width:fit-content;
+    display:flex;
+    font-weight: var(--light-font);
+    
+    &::after{
+      width:100%;
+      text-wrap:nowrap;
+      position:relative;
+      content:"Web Developer";
+      animation:multiTextAni 13.5s ease infinite;
+      animation-delay:7.5s;
+      contain: paint;
+      border-right-width:.15em;
+      border-right-style:solid;
+      border-color: var(--cursor-color , rgba(255,255,255,0));
+      transition: border-color 1s ease;
+   }
+  }
   
 
   & p{
     font-size:clamp(1.3rem,calc(1.1rem + 0.55vw), 1.8rem);
     font-weight: var(--light-font);
   }
-}
-.tooltip-bar{
-  position: absolute;
-  font-size: clamp(1.5rem,calc(1.15rem + 0.9375vw), 2.2rem) ;
-  height:1.4em;
-  width: .12em;
-  z-index: 2;
-  opacity: 0;
 }
 .info-stroke{
   --stroke-width: 1px;
@@ -447,10 +451,10 @@ header{
 .personal-icons{
   @include flex(row,center,center);
   margin-top:min(2.5%,31px);
-  gap: clamp(15px,10px + 1.015vw,23px);
+  gap: clamp(15px,10px + 1vw,23px);
   & > a {
     @include flex(row,center,center);
-    width:clamp(15px,10px + 1.17vw,25px);
+    width:clamp(15px,10px + 1.1vw,25px);
     aspect-ratio: 1;
     opacity: 0;
     animation: showOpacity 1s ease forwards;
@@ -512,6 +516,12 @@ header{
 @keyframes nameMoveAni{
   to{
     transform: translateX(0%);
+  }
+}
+@keyframes nameCapitalAni{
+  to{
+    left: 0%;
+    transform: translate(0%,0%);
   }
 }
 @keyframes moveToSun{
@@ -592,17 +602,99 @@ header{
   opacity: 0;
  }
 }
-@keyframes hideText {
-  0%{
-    clip-path: inset(0px 0px 0px 0px);
+@keyframes multiTextAni {
+  /* 0s to 1.25s (start) */
+  0% { 
+    content:"Web Developer";
+    width:100%; 
+    border-right-color:var(--cursor-color);
   }
-  50%{
-    clip-path: inset(0px var(--active-width) 0px 0px);
+  8%{
+   border-right-color:var(--cursor-color);   
   }
-  70%{
-    clip-path: inset(0px var(--active-width) 0px 0px);
+  9.27%{
+    border-right-color:rgba(255,255,255,0);
+    width:0%; 
   }
-  100%{
-    clip-path: inset(0px 0px 0px 0px);
+ /*1.25s to 1.75s (wait)*/
+  12%{
+    border-right-color:rgba(255,255,255,0);
+    content:"Web Developer";
+    width:0%; 
+  }
+ /*change word*/
+  12.96% { 
+    content:"UI Designer";
+    width:0%; 
+    border-right-color:rgba(255,255,255,0);
+  } 
+  /*1.75s to 2.5s(end)*/
+  18.52% { 
+    border-right-color:var(--cursor-color);
+    width:100%; 
+  }
+  /*2.5s to 4.5s (delay)*/
+  33.33% { 
+    width:100%;  
+    border-right-color:var(--cursor-color);
+  }
+  /*4.5s to 5.75s (start)*/
+  41%{
+    border-right-color:var(--cursor-color);  
+  }
+  42.6% { 
+    width:0%; 
+    border-right-color:rgba(255,255,255,0);   
+  }
+
+  /*5.75s to 6.25s (wait)*/
+  46%{
+    width:0%;
+    content:"UI Designer";
+    border-right-color:rgba(255,255,255,0);
+  }
+  /*change word*/
+  46.2% { 
+    content:"Coder";
+    width:0%;  
+    border-right-color:rgba(255,255,255,0);
+  } 
+  /*6.25s to 7s (end) */
+  51.85% { 
+    width:100%; 
+    border-right-color:var(--cursor-color);
+  }
+  /*7s to 9s (delay) */
+  66.66% { 
+    width:100%;  
+    border-right-color:var(--cursor-color);
+  }
+  /* 9s to 10.25s (start) */
+  73%{
+  border-right-color:var(--cursor-color);  
+  }
+  75.9% { 
+    width:0%;  
+    border-right-color:rgba(255,255,255,0);
+  } 
+    /* 10.25s to 10.75s(wait) */
+  79%{
+      border-right-color:rgba(255,255,255,0);
+      content:"Coder";  
+  }
+    /*change word*/
+  79.6% { 
+    border-right-color:rgba(255,255,255,0);
+    content:"Web Developer";
+    width:0%;  
+  }
+  /* 10.75s to 11.5s (end) */
+  85.2% { 
+    width:100%; 
+    border-right-color:var(--cursor-color);
+  } 
+  /*  11.5s to 13.5 (delay) */
+  100% { 
+    width:100%;  
   }
 }
