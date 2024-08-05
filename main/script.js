@@ -122,6 +122,8 @@ function displayParticles(speed,color){
 function initialCalculations(){
   const loadingContainer = document.querySelector('.loading-container');
   loadingContainer.removeAttribute('style');
+  const svgLeftPx = (loadingContainer.clientWidth / 2) - (loadingContainer.querySelector("svg").clientWidth / 2);
+  loadingContainer.style = `--svg-left:${svgLeftPx}px;`
   const pathEl = loadingContainer.querySelector('svg > path');
   pathEl.style = `--length:${Math.round(pathEl.getTotalLength())}`;  
 
@@ -131,9 +133,11 @@ function initialCalculations(){
 
 };
 
-function handleThemeChange(){
+function handleThemeChange(playAudio = true){
   const audioEl = document.querySelector('audio');
   const bodyEl = document.querySelector('body');
+  const themeIconBtn = document.querySelector(".theme-icon-container");
+  const themeIconTooltip  = window.getComputedStyle(themeIconBtn,'::after')
   bodyEl.className = document.querySelector('body').className === 'dark' ?  'light' : 'dark';
   const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
   const pJS = window.pJSDom[0].pJS;
@@ -142,12 +146,13 @@ function handleThemeChange(){
   pJS.fn.particlesRefresh();
   localStorage.setItem('theme',JSON.stringify(bodyEl.className));
 
-  if(!navigator.maxTouchPoints > 0){
-    //play the sound effect 
+  //play the sound effect 
+  if(playAudio && !navigator.maxTouchPoints > 0){
     audioEl.pause();
     audioEl.currentTime = 0;
     audioEl.play();
   }
+  themeIconBtn.setAttribute("aria-label",`${themeIconTooltip.getPropertyValue("content")}`);
 };
 
 function handleScroll(){
@@ -188,7 +193,7 @@ displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEE
 initialCalculations();
 // handleScroll();
 setTimeout(()=>{
-  document.querySelector(".personal-info-container > h4").style = `--cursor-color:var(--cursor-theme-color);`;
+  document.querySelector(".personal-info-container > h2").style = `--cursor-color:var(--cursor-theme-color);`;
 },6500)
 
 window.addEventListener('resize',()=>{
@@ -208,6 +213,10 @@ window.addEventListener('resize',()=>{
 });
 
 document.querySelector('.theme-icon-container').addEventListener('click',handleThemeChange);
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change' ,()=> {
+  handleThemeChange(false)
+});
 
 document.querySelector('.loading-page').addEventListener('animationstart',(e)=>{
   if(e.animationName === 'clipAni') document.querySelector('main').style.visibility = 'visible';

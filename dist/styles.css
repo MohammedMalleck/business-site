@@ -104,7 +104,7 @@ body.light .navigation-bar {
   box-shadow: 0px 0px 1em rgb(238, 238, 238);
   color: var(--light-theme-color);
 }
-body.light .personal-info-container > h4 {
+body.light .personal-info-container > h2 {
   --cursor-theme-color:var(--dark-theme-color);
 }
 body.dark {
@@ -144,7 +144,7 @@ body.dark .navigation-bar {
   box-shadow: 0px 0px 1em rgb(34, 40, 49);
   color: var(--dark-theme-color);
 }
-body.dark .personal-info-container > h4 {
+body.dark .personal-info-container > h2 {
   --cursor-theme-color:var(--light-theme-color);
 }
 
@@ -177,9 +177,7 @@ body.dark .personal-info-container > h4 {
   width: clamp(50px, 20px + 4.7vw, 100px);
   aspect-ratio: 1;
   overflow: visible;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0%);
+  transform: translateX(var(--svg-left));
   animation: nameCapitalAni 1s ease forwards;
   animation-delay: 1.5s;
 }
@@ -222,10 +220,8 @@ main .particles-js-container {
   pointer-events: none;
 }
 main .navigation-bar {
-  font-weight: var(--light-font);
   position: fixed;
-  font-size: clamp(1.1rem, 1rem + 0.43vw, 1.55rem);
-  padding: 0.5em 1.5em;
+  padding: 0.6em 1.5em;
   border-radius: 100vw;
   bottom: 2%;
   left: 50%;
@@ -235,39 +231,29 @@ main .navigation-bar {
   align-items: stretch;
   justify-content: start;
   list-style: none;
-  gap: 30px;
+  gap: 2em;
   transition: background-color ease 0.2s, color 0.2s ease;
 }
 main .navigation-bar a {
-  transition: transform 0.2s ease;
-}
-main .navigation-bar a.active {
-  transform: scale(1.1) translateY(-25%);
-}
-main .navigation-bar a:not(.active):hover {
-  transform: scale(1.03) translateY(-2%);
+  font-size: inherit;
 }
 main .navigation-bar li {
-  white-space: nowrap;
+  font-size: clamp(1.1rem, 1rem + 0.43vw, 1.6rem);
+  font-weight: var(--light-font);
+  text-wrap: nowrap;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+main .navigation-bar li.active {
+  transform: scale(1.1) translateY(-25%);
+}
+main .navigation-bar li:not(.active):not(.arrow):hover {
+  transform: scale(1.03) translateY(-2%);
 }
 main .navigation-bar .arrow {
-  font-size: clamp(1.1rem, 1rem + 0.43vw, 1.55rem);
   top: 60%;
   position: absolute;
   transition: left 0.15s ease;
-}
-main .navigation-bar:has(a:nth-child(1).active) .arrow {
-  left: var(--left-arrow-1);
-}
-main .navigation-bar:has(a:nth-child(2).active) .arrow {
-  left: var(--left-arrow-2);
-}
-main .navigation-bar:has(a:nth-child(3).active) .arrow {
-  left: var(--left-arrow-3);
-}
-main .navigation-bar:has(a:nth-child(4).active) .arrow {
-  left: var(--left-arrow-4);
 }
 
 header {
@@ -388,18 +374,18 @@ header .theme-icon-container::after {
   animation-delay: 4.5s;
   position: relative;
 }
-.personal-info-container h2 {
+.personal-info-container h1 {
   font-weight: var(--bold-font);
   font-size: clamp(2rem, 1.6rem + 1.2vw, 3rem);
 }
-.personal-info-container h4 {
+.personal-info-container h2 {
   font-size: clamp(1.6rem, 1rem + 1vw, 2.4rem);
   position: relative;
   width: fit-content;
   display: flex;
   font-weight: var(--light-font);
 }
-.personal-info-container h4::after {
+.personal-info-container h2::after {
   width: 100%;
   text-wrap: nowrap;
   position: relative;
@@ -526,8 +512,7 @@ header .theme-icon-container::after {
 }
 @keyframes nameCapitalAni {
   to {
-    left: 0%;
-    transform: translate(0%, 0%);
+    transform: translateX(0px);
   }
 }
 @keyframes moveToSun {

@@ -103,7 +103,7 @@ body{
       box-shadow: 0px 0px 1em rgba(238, 238, 238, 1);
       color: var(--light-theme-color);
     }
-    & .personal-info-container > h4{
+    & .personal-info-container > h2{
       --cursor-theme-color:var(--dark-theme-color);
     }
   }
@@ -149,7 +149,7 @@ body{
       box-shadow: 0px 0px 1em  rgba(34, 40, 49, 1);
       color: var(--dark-theme-color);
     }
-    & .personal-info-container > h4{
+    & .personal-info-container > h2{
       --cursor-theme-color:var(--light-theme-color);
     }
   }
@@ -176,9 +176,7 @@ body{
     width:clamp(50px,calc(20px + 4.7vw),100px);
     aspect-ratio:1;
     overflow: visible;
-    position: relative;
-    left:50%;
-    transform: translate(-50%,0%);
+    transform: translateX(var(--svg-left));
     animation:nameCapitalAni 1s ease forwards;
     animation-delay: 1.5s;
 
@@ -221,52 +219,40 @@ main{
     pointer-events: none;
   }
   .navigation-bar{
-    font-weight: var(--light-font);
     position: fixed;
-    font-size: clamp(1.1rem, 1rem + 0.43vw, 1.55rem);
-    padding:.5em  1.5em;
+    padding:.6em  1.5em;
     border-radius: 100vw;
     bottom: 2%;
     left: 50%;
     transform: translate(-50%,0%);
     @include flex(flex);
     list-style: none;
-    gap: 30px;
+    gap: 2em;
     transition:background-color ease .2s , color .2s ease;
     & a{
+      font-size: inherit;
+    }
+
+    & li{
+      font-size:clamp(1.1rem, 1rem + 0.43vw, 1.6rem);
+      font-weight: var(--light-font);
+      text-wrap: nowrap;
+      cursor: pointer;
       transition:transform .2s ease;
+
       &.active{
         transform: scale(1.1) translateY(-25%);
       }
 
-      &:not(.active):hover{
+      &:not(.active):not(.arrow):hover{
         transform: scale(1.03) translateY(-2%);    
       }
     }
 
-    & li{
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
     & .arrow{
-      font-size: clamp(1.1rem, 1rem + 0.43vw, 1.55rem);
       top: 60%;
       position: absolute;
       transition: left .15s ease;
-    }
-
-    &:has(a:nth-child(1).active) .arrow{
-      left: var(--left-arrow-1);
-    }
-    &:has(a:nth-child(2).active) .arrow{
-      left: var(--left-arrow-2);
-    }
-    &:has(a:nth-child(3).active) .arrow{
-      left: var(--left-arrow-3);
-    }
-    &:has(a:nth-child(4).active) .arrow{
-      left: var(--left-arrow-4);
     }
   }
 }
@@ -370,12 +356,12 @@ header{
   animation:blurEffect 1.2s ease forwards;
   animation-delay: 4.5s;
   position: relative;
-  & h2{
+  & h1{
    font-weight: var(--bold-font);
    font-size: clamp(2rem,calc(1.6rem + 1.2vw),3rem);
   }
 
-  & h4{
+  & h2{
     font-size:clamp(1.6rem,calc(1rem + 1vw), 2.4rem);
     position:relative;
     width:fit-content;
@@ -520,8 +506,7 @@ header{
 }
 @keyframes nameCapitalAni{
   to{
-    left: 0%;
-    transform: translate(0%,0%);
+    transform: translateX(0px);
   }
 }
 @keyframes moveToSun{
