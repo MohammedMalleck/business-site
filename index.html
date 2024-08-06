@@ -13,6 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <!-- font awesome  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- swiperjs  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
   <div class="loading-page">
@@ -48,6 +50,46 @@
         </svg>
       </button>
     </header>
+    <button class="hamburger-icon">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+    <div class="sidebar">
+      <ul>
+        <li>
+          <a href="#home">Home</a>
+        </li>
+        <li>
+          <a href="#services">Services</a>
+        </li>
+        <li>
+          <a href="#whyme">Why Me</a>
+        </li>
+        <li>
+          <a href="#contact">Contact</a>
+        </li>
+        <li>
+          <button class="theme-icon-container">
+            <svg  viewBox="0 0 18 18">
+              <mask id="moon-mask-main-nav-sidebar">
+                <rect x="0" y="0" fill="white"></rect>
+                <circle  cx="10" cy="2"  r="8" class="cover-circle"></circle>
+              </mask>
+              <circle cx="9" cy="9"  class="shape-icon" mask="url(#moon-mask-main-nav-sidebar)" r="8"></circle>
+              <g>
+                <circle cx="17"  cy="9" r="1.3" style="--circle-num:0;"></circle>
+                <circle cx="13" cy="15.928203" r="1.3"  style="--circle-num:1;"></circle>
+                <circle cx="5" cy="15.928203" r="1.3" style="--circle-num:2;"></circle>
+                <circle cx="1" cy="9" r="1.3" style="--circle-num:3;"></circle>
+                <circle cx="5" cy="2.071797" r="1.3" style="--circle-num:4;"></circle>
+                <circle cx="13" cy="2.071797" r="1.3" style="--circle-num:5;"></circle>
+              </g>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
     <section class="content-container">
       <section id="home">
         <div class="img-personal-container">
@@ -68,7 +110,7 @@
           </svg>
           <h1>Mohammed Malleck</h1>
           <h2 class="ani"></h2>
-          <p>Your Partner In Professional Web Presence</p>
+          <h3>Your Partner In Professional Web Presence</h3>
         </div>
         <div class="personal-icons">
           <a href="https://www.linkedin.com/in/mohammed-malleck/" aria-label="visit my linkedin profile" target="_blank" class="icon-container">
@@ -88,10 +130,206 @@
           </a>
         </div>
       </section>
+      <section id="services">
+        <h1>Services</h1>
+        <p>Need a web precence that truly represents your brand? I'm your developer. A range of services I offer include:</p>
+        <div class="services-container-wrapper">
+          <div class="slide-arrow-container">
+            <button aria-label="move the slider to left" class="slider-arrow-left" style="display: none;">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button aria-label="move the slider to right" class="slider-arrow-right">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="services-container">
+            <div class="service-container repair">
+              <h2>Repair Businesses</h2>
+              <div class="view-container">
+                <div class="swiper swiper-1">
+                  <div class="swiper-wrapper">
+                    <img class="swiper-slide" src="main/images/auto-repair/slide-1.avif" alt="auto repair site hero section">
+                    <img class="swiper-slide" src="main/images/auto-repair/slide-2.avif" alt="auto repair site team section">
+                    <img class="swiper-slide" src="main/images/auto-repair/slide-3.avif" alt="auto repair site choose us section">
+                  </div>
+                </div>
+                <a href="#" aria-label="click to view live site">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="click-to-view-btn" aria-label="click to preivew site design">Click to View</button>
+              </div>
+              <p>
+                Developed an Auto Repair Site, a versatile platform for managing bookings, urgent calls, and WhatsApp communication. Integrated a  contact form and much more to maximise profits.
+              </p>
+              <div class="development-message">
+                <i class="fa-solid fa-gear"></i>
+                <p>This project is currently in development.</p>
+              </div>
+            </div>
+            <div class="service-container portfolio">
+              <h2>Portfolio</h2>
+              <div class="view-container">
+                <div class="swiper swiper-2">
+                  <div class="swiper-wrapper">
+                    <img class="swiper-slide" src="main/images/portfolio/slide-1.avif" alt="portfolio site hero section">
+                    <img class="swiper-slide" src="main/images/portfolio/slide-2.avif" alt="portfolio site why me section">
+                    <img class="swiper-slide" src="main/images/portfolio/slide-3.avif" alt="portfolio site work section">
+                  </div>
+                </div>
+                <a href="#" aria-label="click to view live site">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="click-to-view-btn" aria-label="click to preivew site design">Click to View</button>
+              </div>
+              <p>
+                Crafted dynamic portfolio website that serves powerful digital resumes.It features  personal info,  work history,  projects. The seamless presentation is designed to impress potential clients.              </p>
+              <div class="development-message">
+                <i class="fa-solid fa-gear"></i>
+                <p>This project is currently in development.</p>
+              </div>
+            </div>
+            <div class="service-container educational">
+              <h2>Educational Institutions</h2>
+              <div class="view-container">
+                <div class="swiper swiper-3">
+                  <div class="swiper-wrapper">
+                    <img class="swiper-slide" src="main/images/educational-institue/slide-1.avif" alt="educational site hero section">
+                    <img class="swiper-slide" src="main/images/educational-institue/slide-2.avif" alt="educational site activities section">
+                    <img class="swiper-slide" src="main/images/educational-institue/slide-3.avif" alt="educational site courses section">
+                  </div>
+                </div>
+                <a href="#" aria-label="click to view live site">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="click-to-view-btn" aria-label="click to preivew site design">Click to View</button>
+              </div>
+              <p>
+                Showcases a  school website with real-time updates, online enrolment,  and user support systems, demonstrating my expertise in creating tailored, user-friendly educational platforms.
+              </p>
+              <div class="development-message">
+                <i class="fa-solid fa-gear"></i>
+                <p>This project is currently in development.</p>
+              </div>
+            </div>
+            <div class="service-container resturant development-mode">
+              <h2>Eatery</h2>
+              <div class="view-container">
+                <div class="img-scroll-container">
+                  <!-- <img src="" alt="resturant-home-page">
+                  <img src="" alt="resturant-ordering-page">
+                  <img src="" alt="resturant-checkout-page"> -->
+                </div>
+                <a href="#" aria-label="click to view live site">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="click-to-view-btn" aria-label="click to preivew site design">Click to View</button>
+              </div>
+              <p>
+                Crafted a dynamic resturant website featuring online ordering , menu display and call-to-book functionality. Optimized for search engines to boost visibility and attract more local diners.
+              </p>
+              <div class="development-message">
+                <i class="fa-solid fa-gear"></i>
+                <p>This project is currently in development.</p>
+              </div>
+            </div>
+            <div class="service-container photography  development-mode">
+              <h2>Photography Studios</h2>
+              <div class="view-container">
+                <div class="img-scroll-container">
+                  <!-- <img src="" alt="resturant-home-page">
+                  <img src="" alt="resturant-ordering-page">
+                  <img src="" alt="resturant-checkout-page"> -->
+                </div>
+                <a href="#" aria-label="click to view live site">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="click-to-view-btn" aria-label="click to preivew site design">Click to View</button>
+              </div>
+              <p>
+                Developed a studio site featuring streamlined reservation system to boost client bookings and studio exposure. Showcases studio details & messaging for inquiries.
+              </p>
+              <div class="development-message">
+                <i class="fa-solid fa-gear"></i>
+                <p>This project is currently in development.</p>
+              </div>
+            </div>
+            <div class="service-container travel  development-mode">
+              <h2>Travel & Adventure Agencies</h2>
+              <div class="view-container">
+                <div class="img-scroll-container">
+                  <!-- <img src="" alt="resturant-home-page">
+                  <img src="" alt="resturant-ordering-page">
+                  <img src="" alt="resturant-checkout-page"> -->
+                </div>
+                <a href="#" aria-label="click to view live site">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="click-to-view-btn" aria-label="click to preivew site design">Click to View</button>
+              </div>
+              <p>
+                A dynamic adventure site showcasing packages, offers seamless scheduling, and provides multiple contact options including callback requests, demonstrating my ability to create user-centric sites.
+              </p>
+              <div class="development-message">
+                <i class="fa-solid fa-gear"></i>
+                <p>This project is currently in development.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <dialog>
+        <div class="wrapper">
+          <button class="dialog-btn" aria-label="close dialog">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="container">
+            <div class="img-container repair">
+              <img src="main/images/auto-repair/home.avif" alt="home page of auto repair site">
+            </div>
+            <div class="img-container repair">
+              <img src="main/images/auto-repair/about.avif" alt="about page of auto repair site">
+            </div>
+            <div class="img-container repair">
+              <img src="main/images/auto-repair/services.avif" alt="services page of auto repair site">
+            </div>
+            <div class="img-container last-img repair">
+              <img src="main/images/auto-repair/contact.avif" alt="contact page of auto repair site">
+            </div>
+            <div class="img-container educational">
+              <img src="main/images/educational-institue/home.avif" alt="home page of educational institue site">
+            </div>
+            <div class="img-container educational">
+              <img src="main/images/educational-institue/about.avif" alt="about page of educational institue site">
+            </div>
+            <div class="img-container educational">
+              <img src="main/images/educational-institue/latest-news.avif" alt="latest-news page of educational institue site">
+            </div>
+            <div class="img-container educational">
+              <img src="main/images/educational-institue/acadamic.avif" alt="academics page of educational institue site">
+            </div>
+            <div class="img-container educational">
+              <img src="main/images/educational-institue/admission.avif" alt="admission page of educational institue site">
+            </div>
+            <div class="img-container educational">
+              <img src="main/images/educational-institue/activities.avif" alt="activities page of educational institue site">
+            </div>
+            <div class="img-container last-img educational">
+              <img src="main/images/educational-institue/contact.avif" alt="contact page of educational institue site">
+            </div>
+            <div class="img-container last-img portfolio">
+              <img src="main/images/portfolio/single-page.avif" alt="single page of portfolio site">
+            </div>
+            <div class="scroll-btn-container">
+              <div>scroll</div>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </dialog>
     </section>
     <section class="particles-js-container" id="particles-js"></section>
     <ul class="navigation-bar">
-      <li class="active">
+      <li>
         <a class="home-menu" aria-label="navigates to home section" href="#home">
           Home
         </a>
@@ -111,10 +349,8 @@
           Contact
         </a>
       </li>
-      <li class="arrow">
-        <i class="fa-solid fa-chevron-up"></i>
-      </li>
     </ul>
+
     <audio src="main/audio/foot-switch.MP3">
     </audio>
   </main>
@@ -129,9 +365,13 @@
 
     const themeIconTooltip  = window.getComputedStyle(themeIconBtn,'::after')
     themeIconBtn.setAttribute("aria-label",`${themeIconTooltip.getPropertyValue("content")}`);
+
+    document.querySelector(".hamburger-icon").setAttribute("aria-label" , "click to expand sidebar")
   </script>
   <!-- particles.js  -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- swiper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="./dist/bundle.js"></script>
 </body>
 </html>
