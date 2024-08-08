@@ -55,11 +55,12 @@ button{
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s ease , transform .3s ease;
-  z-index: 2;
+  box-shadow: 0px 0px 5em rgba(255,255,255,.3);
 
    body.dark & {
     background-color: var(--light-theme-color);
     color: var(--dark-theme-color);
+    box-shadow: 0px 0px 5em rgba(0,0,0,.3);
   }
   @media (max-width: 650px){ 
     display: none;
@@ -125,6 +126,20 @@ body{
         color: var(--dark-theme-color);
       }
     }
+    & .form-container textarea,
+    & .form-container input,
+    & .form-container button{
+      color: var(--light-theme-color); 
+      background-color: var(--dark-theme-color);
+      &::placeholder{
+        color: inherit; 
+        background-color: inherit;
+      }
+      &::selection {
+        background-color: var(--light-theme-color); 
+        color: var(--dark-theme-color);
+      }
+    }
 
     & .service-container{
       & button{
@@ -173,6 +188,9 @@ body{
     & ::selection {
       background-color: var(--dark-theme-color); 
       color: var(--light-theme-color);
+    }
+    & .image-container-contact{
+      background-color: var(--dark-theme-color);
     }
   }
 
@@ -230,6 +248,20 @@ body{
         color: var(--light-theme-color);
       }
     }
+    & .form-container textarea,
+    & .form-container input,
+    & .form-container button{
+      color: var(--dark-theme-color); 
+      background-color: var(--light-theme-color);
+      &::placeholder{
+        color: inherit; 
+        background-color: inherit;
+      }
+      &::selection {
+        background-color: var(--dark-theme-color); 
+        color: var(--light-theme-color);
+      }
+    }
     & .service-container{
        & button{
         background-color: var(--dark-theme-color);
@@ -275,6 +307,9 @@ body{
     & ::selection {
       background-color: var(--light-theme-color); 
       color: var(--dark-theme-color);
+    }
+    & .image-container-contact{
+      background-color: var(--light-theme-color);
     }
   }
 }
@@ -387,7 +422,7 @@ header{
   @include flex(row,center,end);
   height:calc(var(--theme-icon-size) + 20px);
   padding: 0px 10px;
-  z-index: 2;
+  z-index: 3;
 }
 .theme-icon-container{
   width: var(--theme-icon-size);
@@ -740,7 +775,7 @@ header{
   padding:5%;
   height:100%;
   @include flex(column);
-  border-radius: 3%;
+  border-radius:1em;
   position: relative;
   transition: background-color 0.2s ease , color 0.2s ease;
   transform: translateX(var(--scroll-value));
@@ -926,6 +961,7 @@ dialog{
   }
 
 }
+/*whyme*/
 #whyme{
   width: 100%;
   @include flex(column,center,center);
@@ -977,6 +1013,118 @@ dialog{
     }
   }
 }
+/*contact*/
+#contact{
+  width: 100%;
+  @include flex(column,center,center);
+}
+.contact-content-container{
+  font-size: var(--p-size);
+  width: 100%;
+  max-width: 85%;
+  margin-top: var(--top-gap);
+  @include flex(row,start,space-between);
+}
+.image-holder-contact{
+  @include flex(column,center,center);
+  gap: 1.5em;
+  transform: translateX(-50%);
+  transition: transform 1s ease;
+  text-align: center;
+
+  &.move{
+    transform: translateX(0%);  
+  }
+
+  & .image-container-contact{
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    @include flex(row,center,center);
+    box-shadow: .5em .5em 0px var(--hover-color);
+    transition: background-color .2s ease;
+
+    & img{
+      width: 90%;
+      height: 90%;
+    }
+  }
+}
+.form-container{
+  flex: 1;
+  max-width: 40%;
+  @include flex(row,center,center);
+  transform: translateX(50%);
+  transition: transform 1s ease;
+
+  &.move{
+    transform: translateX(0%);  
+  }
+}
+form{
+  width: 100%;
+  @include flex(column,end,start);
+  gap: .8em;
+
+  & input,
+  & textarea{
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: .5em;
+    padding-left: .5em;
+    transition: background-color .2s ease;
+    font-size: .9em;
+    font-family: "Noto Sans", sans-serif;
+    filter: none !important;
+
+    &::placeholder{
+      font-family: inherit;
+      font-size: inherit;
+    }
+  }
+  & input{
+    height:3em;
+
+    &:nth-child(1){
+      border-top-left-radius:0px;
+      border-top-right-radius: 0px;
+    }
+  }
+  &  textarea{
+    min-height: 9em;
+    max-width: 100%;
+    min-width:100%;
+    padding-top:.6em;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  & .wrapper{
+    width: fit-content;
+  }
+
+  & button{
+    width: 100%;
+    padding: .5em 1.3em;
+    font-size: .95em;
+    cursor: pointer;
+    border-radius: .5em;
+    transition: background-color .2s ease , width 2s ease;
+
+    & > div{
+      display: none;
+    }
+
+    & > div.active{
+      display: block;
+    }
+
+    
+    &:hover{
+      filter: brightness(95%);
+    }
+  }
+}
 //queries
 @media  (max-width:1120px){
   .whyme-content-container{
@@ -988,6 +1136,17 @@ dialog{
   }
   .whyme-card{
     padding: 3%;
+  }
+}
+@media (max-width:890px){
+  .contact-content-container{
+    @include flex(column,center,center);
+    gap: 2em;
+
+  }
+  .form-container{
+    width: 100%;
+    max-width: 55%;
   }
 }
 @media (max-width:650px){
@@ -1003,6 +1162,12 @@ dialog{
 @media (max-width:600px){
   .whyme-content-container{
     max-width: 75%;
+  }
+}
+@media (max-width:500px){
+  .form-container{
+    width: 100%;
+    max-width: 85%;
   }
 }
 @container (max-width:515px){

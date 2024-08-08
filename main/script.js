@@ -184,15 +184,18 @@ function handleServicesSlide(servicesLength,isLeft){
 
 function handleObserver(entries){
   entries.forEach(entry => {
+    const el = entry.target;
     if(entry.isIntersecting){
-      if(entry.target.classList.contains('whyme-card')){
-        entry.target.querySelectorAll('.whyme-head .icon-container svg path').forEach(pathEl =>{
+      if(el.classList.contains('whyme-card')){
+        el.querySelectorAll('.whyme-head .icon-container svg path').forEach(pathEl =>{
           pathEl.style.strokeDashoffset = 0;
         });
+      }else if(el.classList.contains('image-holder-contact') || el.classList.contains('form-container')) {
+        el.classList.add('move');
       }else{
-        entry.target.classList.add('scale');
+        el.classList.add('scale');
       }
-      observer.unobserve(entry.target);
+      observer.unobserve(el);
     };
   });
 }
@@ -207,12 +210,15 @@ setTimeout(()=>{
 document.querySelectorAll('.view-container .swiper').forEach(swiperEl => {
   new CreateAutoSwiper(`.${swiperEl.classList[1]}`,3000,1000,true);
 });
+//observer
 document.querySelectorAll('.service-container').forEach(serviceContainerEl => {
   observer.observe(serviceContainerEl);
 });
 document.querySelectorAll('.whyme-card').forEach(whymeEl => {
   observer.observe(whymeEl);
 });
+observer.observe(document.querySelector('.image-holder-contact'));
+observer.observe(document.querySelector('.form-container'));
 
 
 window.addEventListener('resize',()=>{
@@ -266,6 +272,12 @@ document.querySelectorAll('.service-container .view-container').forEach(viewCont
   viewContainerEl.addEventListener('click',()=>{
     document.querySelector("dialog").showModal();
     document.querySelector("dialog .container").className =`container ${(viewContainerEl.parentElement.classList[1])}`;
+    document.querySelector('dialog .wrapper').removeAttribute("style");   
+    document.querySelector('.scroll-btn-container').classList.remove("hide");
+    if(document.querySelector('dialog .wrapper .container').scrollHeight < window.innerHeight){
+      document.querySelector('.scroll-btn-container').classList.add("hide");
+      document.querySelector('dialog .wrapper').style.height = "fit-content";
+    }
   });
 });
 document.querySelector('dialog .container').addEventListener('scroll',(e)=>{
