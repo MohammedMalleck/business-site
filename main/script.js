@@ -202,6 +202,29 @@ function handleObserver(entries){
   });
 }
 
+function handleForm(nameEl,userEmailEl,phoneNumberEl,messageEl){
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "mohammedmalleck@gmail.com",
+    Password : "8B6C4738CF064C1497CDB97923079A6AFA9E",
+    To : 'mohammedmalleck@gmail.com',
+    From : "mohammedmalleck@gmail.com",
+    Subject : "Contact Form Inquiry",
+    Body : `Name : ${nameEl.value}` + "<br>" + `Email : ${userEmailEl.value}` +  "<br>" +  `Phone : ${phoneNumberEl.value.length ? phoneNumberEl.value : "NOT PROVIDED" }` + "<br>" + `Message : ${messageEl.value}`
+}).then(
+  () => {
+    document.querySelector("form button").textContent = "Sent !";
+    setTimeout(()=>{
+      nameEl.value = "";
+      userEmailEl.value = "";
+      phoneNumberEl.value = "";
+      messageEl.value = "";
+      document.querySelector("form button").textContent = "Send";
+    },2000);
+  }
+);
+}
+
 
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
 initialCalculations();
@@ -312,3 +335,9 @@ document.querySelector('.slider-arrow-left').addEventListener('click',()=>{
     document.querySelector('.slider-arrow-right').style.display = "flex"; 
   }
 });
+
+document.querySelector("form").addEventListener("submit",(e)=>{
+  e.preventDefault();
+  document.querySelector("form button").textContent = "Sending...";
+  handleForm(document.querySelector(".name-input"),document.querySelector(".email-input"),document.querySelector(".number-input"),document.querySelector(".message-textarea"));
+})

@@ -367,16 +367,16 @@
           </div>
           <div class="form-container">
             <form>
-              <input type="text"  required class="Full Name" placeholder="Your Full Name">
-              <input type="email" required class="email" placeholder="Email ID">
-              <input type="text" class="number" placeholder="Phone No.">
-              <textarea class="message" required placeholder="How Can I Help You?"></textarea>
+              <label hidden for="name">Name</label>
+              <input id="name" type="text"  required  class="name-input" placeholder="Your Full Name">
+              <label hidden for="email">Email</label>
+              <input type="email" id="email" required  class="email-input" placeholder="Email ID">
+              <label hidden for="number">Name</label>
+              <input type="text" id="number"  class="number-input" placeholder="Phone No.">
+              <label hidden for="message">Name</label>
+              <textarea id="message" class="message-textarea"  required placeholder="How Can I Help You?"></textarea>
               <div class="wrapper">
-                <button type="submit" aria-label="Send Email">
-                  <div class="active">Send</div>
-                  <div>Sending...</div>
-                  <div>Sent !</div>
-                </button>       
+                <button type="submit" aria-label="Send Email">Send</button>       
               </div>
             </form>
           </div>
@@ -481,6 +481,8 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <!-- swiper.js -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- smtp -->
+   <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script src="./dist/bundle.js"></script>
 </body>
 </html>
