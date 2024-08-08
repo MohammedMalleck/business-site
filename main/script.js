@@ -130,6 +130,12 @@ function initialCalculations(){
     pathEl.style = `--length:${pathEl.getTotalLength()}px;`;
   });
 
+  document.querySelectorAll('.whyme-head .icon-container svg path').forEach(pathEl => {
+    if(pathEl.style.strokeDashoffset !== "0"){
+      pathEl.style = `--length:${pathEl.getTotalLength()}px;`;
+    }
+  });
+
 };
 
 function handleThemeChange(playAudio,themeIconBtn){
@@ -179,7 +185,13 @@ function handleServicesSlide(servicesLength,isLeft){
 function handleObserver(entries){
   entries.forEach(entry => {
     if(entry.isIntersecting){
-      entry.target.classList.add('scale');
+      if(entry.target.classList.contains('whyme-card')){
+        entry.target.querySelectorAll('.whyme-head .icon-container svg path').forEach(pathEl =>{
+          pathEl.style.strokeDashoffset = 0;
+        });
+      }else{
+        entry.target.classList.add('scale');
+      }
       observer.unobserve(entry.target);
     };
   });
@@ -197,6 +209,9 @@ document.querySelectorAll('.view-container .swiper').forEach(swiperEl => {
 });
 document.querySelectorAll('.service-container').forEach(serviceContainerEl => {
   observer.observe(serviceContainerEl);
+});
+document.querySelectorAll('.whyme-card').forEach(whymeEl => {
+  observer.observe(whymeEl);
 });
 
 
