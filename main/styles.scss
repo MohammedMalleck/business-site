@@ -189,7 +189,8 @@ body{
       background-color: var(--dark-theme-color); 
       color: var(--light-theme-color);
     }
-    & .image-container-contact{
+    & .image-container-contact,
+    & .credit-line{
       background-color: var(--dark-theme-color);
     }
   }
@@ -308,7 +309,8 @@ body{
       background-color: var(--light-theme-color); 
       color: var(--dark-theme-color);
     }
-    & .image-container-contact{
+    & .image-container-contact,
+    & .credit-line{
       background-color: var(--light-theme-color);
     }
   }
@@ -1122,6 +1124,34 @@ form{
     
     &:hover{
       filter: brightness(95%);
+    }
+  }
+}
+/*credits*/
+.credit{
+  width: 50%;
+  margin:3em auto 5em auto;
+  @include flex(column,center,center);
+
+  & .credit-line{
+    height: .1em;
+    width: 0%;
+    transition: width 1s ease;
+
+    &.show{
+      width: 100%;
+    }
+  }
+
+  & p{
+    opacity: 0;
+    transform: translateY(-60%);
+    transition: transform 1s ease , opacity .5s ease;
+    text-wrap: nowrap;
+
+    &.show{
+      opacity: 1;
+      transform: translateY(0%);
     }
   }
 }

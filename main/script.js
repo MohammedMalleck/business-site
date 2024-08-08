@@ -192,6 +192,8 @@ function handleObserver(entries){
         });
       }else if(el.classList.contains('image-holder-contact') || el.classList.contains('form-container')) {
         el.classList.add('move');
+      }else if (el.classList.contains("credit-line") || el.classList.contains("credit-text")){
+        el.classList.add("show");
       }else{
         el.classList.add('scale');
       }
@@ -219,6 +221,8 @@ document.querySelectorAll('.whyme-card').forEach(whymeEl => {
 });
 observer.observe(document.querySelector('.image-holder-contact'));
 observer.observe(document.querySelector('.form-container'));
+observer.observe(document.querySelector('.credit-line'));
+observer.observe(document.querySelector('.credit-text'));
 
 
 window.addEventListener('resize',()=>{
