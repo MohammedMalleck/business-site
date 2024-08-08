@@ -20,6 +20,11 @@
 }
 html{
   font-size: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 a{
   text-decoration: none;
@@ -151,19 +156,16 @@ body{
       }
     }
 
-    & .slide-arrow-container > button{
+    & .slide-arrow-container > button,
+    & .hamburger-icon > div,
+    & .sidebar,
+    & .image-container-contact,
+    & .credit-line{
       background-color: var(--dark-theme-color);
       color: var(--light-theme-color);
-    }
-    & .hamburger-icon > div{
-      background-color: var(--dark-theme-color);
     }
     & .hamburger-icon.active > div{
       background-color: var(--light-theme-color);
-    }
-    & .sidebar{
-      background-color: var(--dark-theme-color);
-      color: var(--light-theme-color);
     }
     & .sidebar ul li:nth-child(5) button::before{
       content: 'Switch to Dark Mode';
@@ -179,19 +181,13 @@ body{
         background-color: var(--light-theme-color);
         &i{
           color: var(--dark-theme-color);
+          border: 1px solid var(--light-theme-color);
         }
       }
-    }
-    & .dialog-btn i {
-      color: var(--dark-theme-color);
     }
     & ::selection {
       background-color: var(--dark-theme-color); 
       color: var(--light-theme-color);
-    }
-    & .image-container-contact,
-    & .credit-line{
-      background-color: var(--dark-theme-color);
     }
   }
 
@@ -230,6 +226,7 @@ body{
     }
     & .theme-icon-container::after{
       content: 'Switch to Light Mode';
+      color: var(--dark-theme-color);
     };
     & .navigation-bar{
       background-color: var(--dark-theme-color);
@@ -272,23 +269,19 @@ body{
        filter:drop-shadow(0px 0px .2em rgba(34, 40, 49,.3));
        }
     }
-    & .slide-arrow-container > button{
+    & .slide-arrow-container > button,
+    & .hamburger-icon > div,
+    & .sidebar,
+    & .image-container-contact,
+    & .credit-line{
       background-color: var(--light-theme-color);
       color: var(--dark-theme-color);
-    }
-    & .hamburger-icon > div{
-      background-color: var(--light-theme-color);
     }
     & .hamburger-icon.active > div{
       background-color: var(--dark-theme-color);
     }
-    & .sidebar{
-      background-color: var(--light-theme-color);
-      color: var(--dark-theme-color);
-    }
     & .sidebar ul li:nth-child(5) button::before{
       content: 'Switch to Light Mode';
-      color: var(--dark-theme-color);
     }
     & .sidebar ul li button.theme-icon-container{
       --svg-color:var(--dark-theme-color);
@@ -299,19 +292,13 @@ body{
         background-color: var(--dark-theme-color);
         &i{
           color: var(--light-theme-color);
+          border: 1px solid var(--light-theme-color);
         }
       }
-    }
-    & .dialog-btn i {
-      color: var(--light-theme-color);
     }
     & ::selection {
       background-color: var(--light-theme-color); 
       color: var(--dark-theme-color);
-    }
-    & .image-container-contact,
-    & .credit-line{
-      background-color: var(--light-theme-color);
     }
   }
 }
@@ -422,9 +409,8 @@ header{
   right: 0px;
   left: 0px;
   @include flex(row,center,end);
-  height:calc(var(--theme-icon-size) + 20px);
-  padding: 0px 10px;
-  z-index: 3;
+  padding:10px;
+  z-index: 4;
 }
 .theme-icon-container{
   width: var(--theme-icon-size);
@@ -472,10 +458,7 @@ header{
   width: 22px;
   display: none;
   cursor: pointer;
-  position: fixed;
-  top: calc(var(--theme-icon-size)/2);
-  right: 10px;
-  z-index: 4;
+  position: relative;
   transition: transform .35s ease;
   & > div{
     position: absolute;
@@ -548,6 +531,8 @@ header{
   padding: 0px 20px;
   overflow: scroll;
   position: relative;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   &::-webkit-scrollbar{
     display: none;
   }
@@ -853,6 +838,7 @@ header{
     font-size: 1.2em;
     padding: 1% 0;
     z-index: 2;
+    cursor: pointer;
   }
   & a{
     display: inline-block;
@@ -878,6 +864,7 @@ dialog{
   width: 100%;
   max-height: 100%;
   max-width: 100%;
+  padding: 10px 0px;
   border: none;
   transition: opacity .2s ease;
   font-size: var(--p-size);
@@ -1019,6 +1006,11 @@ dialog{
 #contact{
   width: 100%;
   @include flex(column,center,center);
+
+  &.intersected .image-holder-contact,
+  &.intersected .form-container{
+    transform: translateX(0%);  
+  }
 }
 .contact-content-container{
   font-size: var(--p-size);
@@ -1033,10 +1025,6 @@ dialog{
   transform: translateX(-50%);
   transition: transform 1s ease;
   text-align: center;
-
-  &.move{
-    transform: translateX(0%);  
-  }
 
   & .image-container-contact{
     width: 100%;
@@ -1057,13 +1045,10 @@ dialog{
   @include flex(row,center,center);
   transform: translateX(50%);
   transition: transform 1s ease;
-
-  &.move{
-    transform: translateX(0%);  
-  }
 }
 form{
   width: 100%;
+  background-color: transparent;
   @include flex(column,end,start);
   gap: .8em;
 
@@ -1087,7 +1072,7 @@ form{
   & input{
     height:3em;
 
-    &:nth-child(1){
+    &:nth-child(2){
       border-top-left-radius:0px;
       border-top-right-radius: 0px;
     }
@@ -1143,6 +1128,46 @@ form{
       opacity: 1;
       transform: translateY(0%);
     }
+  }
+}
+.whatsapp-icon{
+  position: fixed;
+  bottom: 1em;
+  right: 2em;
+  @include flex(row);
+  background-color: white;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+  transform: translateY(30%);
+  opacity: 0;
+  z-index: 2;
+  transition: transform .5s ease , opacity .5s ease;
+  pointer-events: none;
+
+  & i{
+    color:#25CF43;
+    font-size: 3em;
+    transform: scale(1.2);
+  }
+
+   &.show{
+    transform: translateY(0%);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &::after{
+    @extend %tooltip-styles;
+    content:  "WhatsApp Me";
+    bottom: 130%;
+    left: 50%;
+    transform: translate(-50%,30%);
+  }
+
+  &:hover::after{
+    opacity: 1;
+    transform: translate(-50%,0%);
   }
 }
 //queries

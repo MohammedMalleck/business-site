@@ -138,10 +138,10 @@ function initialCalculations(){
 
 };
 
-function handleThemeChange(playAudio,themeIconBtn){
+function handleThemeChange(playAudio,themeClass){
   const audioEl = document.querySelector('audio');
   const bodyEl = document.querySelector('body');
-  bodyEl.className = document.querySelector('body').className === 'dark' ?  'light' : 'dark';
+  bodyEl.className = themeClass;
   const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
   const pJS = window.pJSDom[0].pJS;
   pJS.particles.color.value = particlesColor;
@@ -155,7 +155,9 @@ function handleThemeChange(playAudio,themeIconBtn){
     audioEl.currentTime = 0;
     audioEl.play();
   }
-  themeIconBtn.setAttribute("aria-label",`Switch to ${bodyEl.className === 'dark' ? 'Light' : 'Dark'} Mode`);
+  document.querySelectorAll('.theme-icon-container').forEach(themeIconEl => {
+    themeIconEl.setAttribute("aria-label",`Switch to ${bodyEl.className === 'dark' ? 'Light' : 'Dark'} Mode`);
+  });
 };
 
 class CreateAutoSwiper{
@@ -190,14 +192,17 @@ function handleObserver(entries){
         el.querySelectorAll('.whyme-head .icon-container svg path').forEach(pathEl =>{
           pathEl.style.strokeDashoffset = 0;
         });
-      }else if(el.classList.contains('image-holder-contact') || el.classList.contains('form-container')) {
-        el.classList.add('move');
-      }else if (el.classList.contains("credit-line") || el.classList.contains("credit-text")){
-        el.classList.add("show");
+      }else if(el === document.querySelector("#contact")) {
+        el.classList.add('intersected');
+        document.querySelector(".whatsapp-icon").classList.add("show")
+      }else if (el.classList.contains("credit")){
+        el.querySelector(".credit-line").classList.add("show");
+        el.querySelector(".credit-text").classList.add("show");
       }else{
         el.classList.add('scale');
       }
-      observer.unobserve(el);
+    }else if(!entry.isIntersecting && el === document.querySelector("#contact")){
+     document.querySelector(".whatsapp-icon").classList.remove("show");
     };
   });
 }
@@ -242,10 +247,8 @@ document.querySelectorAll('.service-container').forEach(serviceContainerEl => {
 document.querySelectorAll('.whyme-card').forEach(whymeEl => {
   observer.observe(whymeEl);
 });
-observer.observe(document.querySelector('.image-holder-contact'));
-observer.observe(document.querySelector('.form-container'));
-observer.observe(document.querySelector('.credit-line'));
-observer.observe(document.querySelector('.credit-text'));
+observer.observe(document.querySelector('#contact'));
+observer.observe(document.querySelector('.credit'));
 
 
 window.addEventListener('resize',()=>{
@@ -274,12 +277,12 @@ window.addEventListener('resize',()=>{
 
 document.querySelectorAll('.theme-icon-container').forEach(themeIconBtn => {
   themeIconBtn.addEventListener('click',()=>{
-    handleThemeChange(true,themeIconBtn);
+    handleThemeChange(true,document.querySelector("body").className === "dark" ? "light" : "dark");
   });
 });
 
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change' ,()=> {
-  handleThemeChange(false)
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change' ,(e)=> {
+  handleThemeChange(false,e.matches ? "dark" : "light");
 });
 
 document.querySelector('.loading-page').addEventListener('animationstart',(e)=>{
