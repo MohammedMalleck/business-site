@@ -196,7 +196,7 @@ function handleObserver(entries){
       }else if(el === document.querySelector("#contact")) {
         el.classList.add('intersected');
         document.querySelector(".whatsapp-icon").classList.add("show")
-      }else if (el.classList.contains("credit")){
+      }else if (el === document.querySelector("footer")){
         el.querySelector(".credit-line").classList.add("show");
         el.querySelector(".credit-text").classList.add("show");
       }else{
@@ -249,7 +249,7 @@ document.querySelectorAll('.whyme-card').forEach(whymeEl => {
   observer.observe(whymeEl);
 });
 observer.observe(document.querySelector('#contact'));
-observer.observe(document.querySelector('.credit'));
+observer.observe(document.querySelector("footer"));
 
 //event listeners
 window.addEventListener('resize',()=>{

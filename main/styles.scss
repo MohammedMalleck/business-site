@@ -75,7 +75,8 @@ body{
   font-size: 1.6rem;
   font-weight: var(--light-font);
   font-family: "Noto Sans", sans-serif;
-  height: 100%;
+  height: 100vh;
+  height: 100svh;
 
   /*ligt theme styles*/
   &.light{
@@ -353,9 +354,13 @@ body{
 }
 main{
   @include flex(row);
-  height: 100vh;
-  height: 100svh;
+  height: fit-content;
   --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 
   & .particles-js-container{
     position: fixed;
@@ -526,16 +531,11 @@ header{
 .content-container{
   @include flex(column);
   width: 100%;
-  height: 100%;
-  gap: 10%;
+  height: fit-content;
+  gap: 5em;
   padding: 0px 20px;
   overflow: scroll;
   position: relative;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar{
-    display: none;
-  }
 }
 .content-container section:nth-child(1){
   padding-top:calc(20px + var(--theme-icon-size));
@@ -1103,9 +1103,15 @@ form{
   }
 }
 /*credits*/
+footer{
+  width: 100%;
+  @include flex(row,center,center);
+  font-size: var(--p-size);
+  padding: 10vh 0vh;
+}
 .credit{
   width: 50%;
-  margin:3em auto 5em auto;
+  margin:0em auto;
   @include flex(column,center,center);
 
   & .credit-line{
