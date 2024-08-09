@@ -1,9 +1,10 @@
 import './styles.scss';
 
+//variables
 const previousViewportWidth = window.innerWidth;
 let slide = 0;
 const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin :"0px" , threshold : 0.01});
-
+//function & classes defined
 function displayParticles(speed,color){
   particlesJS("particles-js",
     {
@@ -230,7 +231,7 @@ function handleForm(nameEl,userEmailEl,phoneNumberEl,messageEl){
 );
 }
 
-
+//functions & classes invoked/used
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
 initialCalculations();
 setTimeout(()=>{
@@ -250,11 +251,9 @@ document.querySelectorAll('.whyme-card').forEach(whymeEl => {
 observer.observe(document.querySelector('#contact'));
 observer.observe(document.querySelector('.credit'));
 
-
+//event listeners
 window.addEventListener('resize',()=>{
-
-  //re rearrange plarticles only if the change in height is not in 
-  //touch devices(it becuase they have a adress bar)
+  //execute reszie code only if width is changed...not height
   if(previousViewportWidth !== window.innerWidth){
     const servicesContainerEl = document.querySelector('.services-container');
     const bodyEl = document.querySelector('body');
@@ -314,29 +313,25 @@ document.querySelector('dialog .container').addEventListener('scroll',(e)=>{
   const scrollBtnEl = document.querySelector('.scroll-btn-container');
   e.target.scrollTop > 150 ? scrollBtnEl.classList.add("hide") : scrollBtnEl.classList.remove("hide");
 });
+//right slide button
 document.querySelector('.slider-arrow-right').addEventListener('click',()=>{
   const servicesContainerEl = document.querySelector('.services-container');
   const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
   handleServicesSlide(servicesLength,false);
 
-  if(slide > 0){
-    document.querySelector('.slider-arrow-left').style.display = "flex";
-  }
-  if(!(slide < servicesLength)){
-    document.querySelector('.slider-arrow-right').style.display = "none"; 
-  }
+  if(slide > 0) document.querySelector('.slider-arrow-left').style.display = "flex";
+  if(slide === servicesLength) document.querySelector('.slider-arrow-right').style.display = "none"; 
+  
 });
+//left slide button
 document.querySelector('.slider-arrow-left').addEventListener('click',()=>{
   const servicesContainerEl = document.querySelector('.services-container');
   const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
   handleServicesSlide(servicesLength,true);
 
-  if(slide < 1){
-    document.querySelector('.slider-arrow-left').style.display = "none";
-  }
-  if(slide < servicesLength){
-    document.querySelector('.slider-arrow-right').style.display = "flex"; 
-  }
+  if(slide < 1) document.querySelector('.slider-arrow-left').style.display = "none";
+  if(slide < servicesLength) document.querySelector('.slider-arrow-right').style.display = "flex"; 
+  
 });
 
 document.querySelector("form").addEventListener("submit",(e)=>{
