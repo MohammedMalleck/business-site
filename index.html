@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <!-- swiperjs  -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- email.js -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <div class="loading-page">
@@ -366,15 +368,15 @@
             <p>"I appreciate your interest. Let's start a conversation."</p>
           </div>
           <div class="form-container">
-            <form>
+            <form id="contact-form">
               <label hidden for="name">Name</label>
-              <input id="name" type="text"  required  class="name-input" placeholder="Your Full Name">
+              <input id="name" type="text"  required  class="name-input" placeholder="Your Full Name" name="user_name">
               <label hidden for="email">Email</label>
-              <input type="email" id="email" required  class="email-input" placeholder="Email ID">
+              <input type="email" id="email" required  class="email-input" placeholder="Email ID" name="user_email">
               <label hidden for="number">Name</label>
-              <input type="text" id="number"  class="number-input" placeholder="Phone No.">
+              <input type="text" id="number"  class="number-input" placeholder="Phone No." name="contact_number">
               <label hidden for="message">Name</label>
-              <textarea id="message" class="message-textarea"  required placeholder="How Can I Help You?"></textarea>
+              <textarea id="message" class="message-textarea"  required placeholder="How Can I Help You?" name="message"></textarea>
               <div class="wrapper">
                 <button type="submit" aria-label="Send Email">Send</button>       
               </div>

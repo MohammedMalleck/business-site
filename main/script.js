@@ -208,35 +208,15 @@ function handleObserver(entries){
   });
 }
 
-function handleForm(nameEl,userEmailEl,phoneNumberEl,messageEl){
-  Email.send({
-    Host : "smtp.elasticemail.com",
-    Username : "mohammedmalleck@gmail.com",
-    Password : "8B6C4738CF064C1497CDB97923079A6AFA9E",
-    To : 'mohammedmalleck@gmail.com',
-    From : "mohammedmalleck@gmail.com",
-    Subject : "Contact Form Inquiry",
-    Body : `Name : ${nameEl.value}` + "<br>" + `Email : ${userEmailEl.value}` +  "<br>" +  `Phone : ${phoneNumberEl.value.length ? phoneNumberEl.value : "NOT PROVIDED" }` + "<br>" + `Message : ${messageEl.value}`
-}).then(
-  () => {
-    document.querySelector("form button").textContent = "Sent !";
-    setTimeout(()=>{
-      nameEl.value = "";
-      userEmailEl.value = "";
-      phoneNumberEl.value = "";
-      messageEl.value = "";
-      document.querySelector("form button").textContent = "Send";
-    },2000);
-  }
-);
-}
-
 //functions & classes invoked/used
 displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
 initialCalculations();
 setTimeout(()=>{
   document.querySelector(".personal-info-container > h2").style = `--cursor-color:var(--cursor-theme-color);`;
 },6500);
+emailjs.init({
+  publicKey: "9oK2xJrqwmKF0O2Dx",
+});
 
 document.querySelectorAll('.view-container .swiper').forEach(swiperEl => {
   new CreateAutoSwiper(`.${swiperEl.classList[1]}`,3000,1000,true);
@@ -337,5 +317,18 @@ document.querySelector('.slider-arrow-left').addEventListener('click',()=>{
 document.querySelector("form").addEventListener("submit",(e)=>{
   e.preventDefault();
   document.querySelector("form button").textContent = "Sending...";
-  handleForm(document.querySelector(".name-input"),document.querySelector(".email-input"),document.querySelector(".number-input"),document.querySelector(".message-textarea"));
+  emailjs.sendForm('contact_service', 'contact_form', document.querySelector("form"))
+  .then(() => {
+    document.querySelector("form button").textContent = "Sent!"
+    setTimeout(()=>{
+    document.querySelector(".name-input").value = "";
+    document.querySelector(".email-input").value = "";
+    document.querySelector(".number-input").value = "";
+    document.querySelector(".message-textarea").value = "";
+    document.querySelector("form button").textContent = "Send";
+    },2500);
+  }, (error) => {
+    console.log('FAILED...', error);
+    //show error section div here 
+  });
 })
