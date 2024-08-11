@@ -1007,6 +1007,7 @@ dialog{
 #contact{
   width: 100%;
   @include flex(column,center,center);
+  overflow: hidden;
 
   &.intersected .image-holder-contact,
   &.intersected .form-container{
