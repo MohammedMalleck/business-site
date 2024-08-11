@@ -72,7 +72,7 @@ button{
   }
 }
 body{
-  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
+  --theme-icon-size:clamp(22px,calc( 20px + 0.9vw), 35px);
   font-size: 1.6rem;
   font-weight: var(--light-font);
   font-family: "Noto Sans", sans-serif;
@@ -103,16 +103,18 @@ body{
       --loading-screen-color:var(--light-theme-color);
     }
     & .theme-icon-container svg{
-      & .cover-circle{
-        transform: translate(0%);
-      }
-      & .shape-icon{
-        animation: moveToMoon .8s ease forwards;
-      }
+      color: var(--dark-theme-color);
 
-      & g > circle{
-        transform: scale(0);
+      &:nth-child(1){
+        display: none;
       }
+    }
+    & .sidebar .theme-icon-container svg{
+      color: var(--light-theme-color);
+    }
+    & .theme-icon-container::after{
+      content: 'Switch to Light Mode';
+      color: var(--light-theme-color);
     }
 
     & .img-personal-container{
@@ -124,9 +126,6 @@ body{
     & .info-stroke path{
       stroke: var(--dark-theme-color);
     }
-    & .theme-icon-container::after{
-      content: 'Switch to Dark Mode';
-    };
     & .navigation-bar{
       background-color: var(--light-theme-color);
       box-shadow: 0px 0px .4em rgba(34, 40, 49, .3);
@@ -217,18 +216,17 @@ body{
     }
 
     & .theme-icon-container svg{
-      & .cover-circle{
-        transform: translate(100%);
+      color: var(--light-theme-color);
+      &:nth-child(2){
+        display: none;
       }
-      & .shape-icon{
-        animation: moveToSun .5s ease forwards;
-      }
-
-      & g > circle{
-        transform: scale(0);
-        animation:showRays .3s ease forwards;
-        animation-delay:calc(var(--circle-num) * 0.05s);
-      }
+    }
+    & .sidebar .theme-icon-container svg{
+      color: var(--dark-theme-color);
+    }
+    & .theme-icon-container::after{
+      content: 'Switch to Light Mode';
+      color: var(--dark-theme-color);
     }
     & .img-personal-container{
       background-color: var(--light-theme-color);
@@ -239,10 +237,6 @@ body{
     & .info-stroke path{
       stroke: var(--light-theme-color);
     }
-    & .theme-icon-container::after{
-      content: 'Switch to Light Mode';
-      color: var(--dark-theme-color);
-    };
     & .navigation-bar{
       background-color: var(--dark-theme-color);
       box-shadow: 0px 0px .4em  rgba(238, 238, 238, .3);
@@ -327,8 +321,8 @@ body{
   clip-path: polygon(0% 0%, 0 100%, 50% 100%, 100% 100%, 100% 0);
   animation: clipAni 2s ease forwards;
   animation-delay: 3s;
-  pointer-events: none;
-  z-index: 3;
+  pointer-events: all;
+  z-index: 5;
 }
 .loading-container{
   @include flex(row);
@@ -431,28 +425,15 @@ header{
   aspect-ratio: 1;
   position: relative;
   cursor: pointer;
-  @include flex(row);
+  @include flex(row,center,center);
 
-  & svg{
+  & svg:nth-child(1){
     width: 100%;
-    height: 100%;
-    overflow: visible;
-    @include flex(row);
-    transform: rotate(40deg);
-
-    & rect{
-      width: 100%;
-      height: 100%;
-    }
-
-    & .cover-circle{
-      transition: transform .5s ease;
-    }
-    & .shape-icon,
-    & g > circle{
-      fill: var(--svg-color);
-      transform-origin:center center;
-    }
+    height: 100%; 
+  }
+  & svg:nth-child(2){
+    width: 85%;
+    height: 85%; 
   }
 
   &:hover::after{
@@ -462,7 +443,7 @@ header{
 
   &::after{
     @extend %tooltip-styles;
-    right: 150%;
+    right: 120%;
     top: 50%;
     transform: translate(10%,-50%);
   }
@@ -1325,33 +1306,6 @@ footer{
 @keyframes nameCapitalAni{
   to{
     transform: translateX(0px);
-  }
-}
-@keyframes moveToSun{
-  to{
-    transform:rotate(90deg) scale(.55);
-  }
-}
-@keyframes showRays{
-  0%{
-    transform:scale(0);
-  }
-  70%{
-    transform:scale(1.1);
-  }
-  100%{
-    transform:scale(1); 
-  }
-}
-@keyframes moveToMoon{
-  0%{
-   transform:rotate(90deg) scale(.55);     
-  }
-  50%{
-    transform:rotate(-15deg) scale(1);     
-  }
-  100%{
-    transform:rotate(0deg) scale(1);   
   }
 }
 @keyframes imageAni{
