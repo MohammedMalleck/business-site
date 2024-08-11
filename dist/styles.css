@@ -374,7 +374,7 @@ main .navigation-bar a {
 main .navigation-bar li {
   font-size: clamp(1.1rem, 1rem + 0.43vw, 1.6rem);
   font-weight: var(--light-font);
-  text-wrap: nowrap;
+  white-space: nowrap;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -510,7 +510,7 @@ header {
 }
 .sidebar ul li:nth-child(5) button::before {
   font-family: "Noto Sans", sans-serif;
-  text-wrap: nowrap;
+  white-space: nowrap;
   font-size: 1.4rem;
   position: absolute;
   top: 50%;
@@ -615,7 +615,7 @@ header {
 }
 .personal-info-container h2::after {
   width: 100%;
-  text-wrap: nowrap;
+  white-space: nowrap;
   position: relative;
   content: "Web Developer";
   animation: multiTextAni 13.5s ease infinite;
@@ -1173,7 +1173,7 @@ footer {
   opacity: 0;
   transform: translateY(-60%);
   transition: transform 1s ease, opacity 0.5s ease;
-  text-wrap: nowrap;
+  white-space: nowrap;
 }
 .credit p.show {
   opacity: 1;
