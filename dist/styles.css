@@ -172,9 +172,8 @@ body.light .dialog-btn {
 body.light .dialog-btn:hover {
   background-color: var(--light-theme-color);
 }
-body.light .dialog-btn:hoveri {
+body.light .dialog-btn i {
   color: var(--dark-theme-color);
-  border: 1px solid var(--light-theme-color);
 }
 body.light ::selection {
   background-color: var(--dark-theme-color);
@@ -268,9 +267,8 @@ body.dark .dialog-btn {
 body.dark .dialog-btn:hover {
   background-color: var(--dark-theme-color);
 }
-body.dark .dialog-btn:hoveri {
+body.dark .dialog-btn i {
   color: var(--light-theme-color);
-  border: 1px solid var(--light-theme-color);
 }
 body.dark ::selection {
   background-color: var(--light-theme-color);
@@ -383,6 +381,9 @@ main .navigation-bar .arrow {
   top: 60%;
   position: absolute;
   transition: left 0.15s ease;
+}
+main:has(dialog[open]) .content-container {
+  pointer-events: none;
 }
 
 header {

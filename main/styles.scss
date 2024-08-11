@@ -185,10 +185,9 @@ body{
 
       &:hover{
         background-color: var(--light-theme-color);
-        &i{
-          color: var(--dark-theme-color);
-          border: 1px solid var(--light-theme-color);
-        }
+      }
+      & i{
+        color: var(--dark-theme-color);
       }
     }
     & ::selection {
@@ -294,12 +293,12 @@ body{
     }
     & .dialog-btn{
       border: 1px solid var(--dark-theme-color);
+
       &:hover{
         background-color: var(--dark-theme-color);
-        &i{
-          color: var(--light-theme-color);
-          border: 1px solid var(--light-theme-color);
-        }
+      }
+      & i{
+        color: var(--light-theme-color);
       }
     }
     & ::selection {
@@ -407,6 +406,9 @@ main{
       position: absolute;
       transition: left .15s ease;
     }
+  }
+  &:has(dialog[open]) .content-container{
+    pointer-events: none;
   }
 }
 header{

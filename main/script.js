@@ -275,21 +275,21 @@ document.querySelector(".hamburger-icon").addEventListener("click",()=>{
 });
 
 document.querySelector('.dialog-btn').addEventListener('click',()=>{
-  document.querySelector("dialog").close();
+  document.querySelector(".preview-project-dialog").close();
 });
 document.querySelectorAll('.service-container .view-container').forEach(viewContainerEl => {
   viewContainerEl.addEventListener('click',()=>{
-    document.querySelector("dialog").showModal();
-    document.querySelector("dialog .container").className =`container ${(viewContainerEl.parentElement.classList[1])}`;
-    document.querySelector('dialog .wrapper').removeAttribute("style");   
+    document.querySelector(".preview-project-dialog").showModal();
+    document.querySelector(".preview-project-dialog .container").className =`container ${(viewContainerEl.parentElement.classList[1])}`;
+    document.querySelector('.preview-project-dialog .wrapper').removeAttribute("style");   
     document.querySelector('.scroll-btn-container').classList.remove("hide");
-    if(document.querySelector('dialog .wrapper .container').scrollHeight < window.innerHeight){
+    if(document.querySelector('.preview-project-dialog .wrapper .container').scrollHeight < window.innerHeight){
       document.querySelector('.scroll-btn-container').classList.add("hide");
-      document.querySelector('dialog .wrapper').style.height = "fit-content";
+      document.querySelector('.preview-project-dialog .wrapper').style.height = "fit-content";
     }
   });
 });
-document.querySelector('dialog .container').addEventListener('scroll',(e)=>{
+document.querySelector('.preview-project-dialog .container').addEventListener('scroll',(e)=>{
   const scrollBtnEl = document.querySelector('.scroll-btn-container');
   e.target.scrollTop > 150 ? scrollBtnEl.classList.add("hide") : scrollBtnEl.classList.remove("hide");
 });
