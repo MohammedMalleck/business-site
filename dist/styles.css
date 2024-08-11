@@ -79,8 +79,12 @@ body {
   font-family: "Noto Sans", sans-serif;
   height: 100vh;
   height: 100svh;
+  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
   /*ligt theme styles*/
   /*dark theme styles*/
+}
+body:has(.hamburger-icon.active) .sidebar {
+  clip-path: inset(0px 0px 0px 0px);
 }
 body.light {
   background-color: var(--light-theme-color);
@@ -332,7 +336,6 @@ main {
   align-items: stretch;
   justify-content: start;
   height: fit-content;
-  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -380,9 +383,6 @@ main .navigation-bar .arrow {
   top: 60%;
   position: absolute;
   transition: left 0.15s ease;
-}
-main:has(.hamburger-icon.active) .sidebar {
-  clip-path: inset(0px 0px 0px 0px);
 }
 
 header {

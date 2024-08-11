@@ -77,6 +77,11 @@ body{
   font-family: "Noto Sans", sans-serif;
   height: 100vh;
   height: 100svh;
+  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
+
+  &:has(.hamburger-icon.active) .sidebar{
+    clip-path: inset(0px 0px 0px 0px);
+  }
 
   /*ligt theme styles*/
   &.light{
@@ -355,7 +360,6 @@ body{
 main{
   @include flex(row);
   height: fit-content;
-  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar{
@@ -403,9 +407,6 @@ main{
       position: absolute;
       transition: left .15s ease;
     }
-  }
-  &:has(.hamburger-icon.active) .sidebar{
-    clip-path: inset(0px 0px 0px 0px);
   }
 }
 header{
