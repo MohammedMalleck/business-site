@@ -328,7 +328,7 @@ document.querySelector("form").addEventListener("submit",(e)=>{
     document.querySelector("form button").textContent = "Send";
     },2500);
   }, (error) => {
-    console.log('FAILED...', error);
     //show error section div here 
+    document.querySelector("dialog.error").showModal();
   });
 })

@@ -72,15 +72,25 @@ button{
   }
 }
 body{
+  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
   font-size: 1.6rem;
   font-weight: var(--light-font);
   font-family: "Noto Sans", sans-serif;
   height: 100vh;
   height: 100svh;
-  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 
   &:has(.hamburger-icon.active) .sidebar{
     clip-path: inset(0px 0px 0px 0px);
+  }
+
+  &:has(dialog[open]){
+    overflow: hidden;
   }
 
   /*ligt theme styles*/
@@ -359,11 +369,7 @@ body{
 main{
   @include flex(row);
   height: fit-content;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar{
-    display: none;
-  }
+
 
   & .particles-js-container{
     position: fixed;
@@ -537,7 +543,6 @@ header{
   height: fit-content;
   gap: 5em;
   padding: 0px 20px;
-  overflow: scroll;
   position: relative;
 }
 .content-container section:nth-child(1){
@@ -878,6 +883,10 @@ dialog{
   &[open]{
     opacity: 1;
     pointer-events: all; 
+
+    & div{
+      transform: translate(0%,0%);
+    }
   }
   & .wrapper{
     width: 40%;
@@ -1179,6 +1188,44 @@ footer{
     opacity: 1;
     transform: translate(-50%,0%);
   }
+}
+.error-container{
+  margin-bottom: auto;
+  background-color: #9e2a2b;
+  width: 100%;
+  width: fit-content;
+  padding: 1em;
+  @include flex(column);
+  gap: 1em;
+  color: white;
+  border-radius: 5px;
+  font-size: var(--p-size);
+  transform: translateY(-50%);
+  transition: transform .2s ease;
+
+  & div{
+    @include flex(row,center,center);  
+    gap: .8em;
+    width: 100%;
+  }
+
+  & h2{
+    font-size: var(--h2-size);
+  }
+  & i{
+    font-size: var(--h2-size);   
+  }
+
+  & a{
+    font-size:.8em;
+    margin-top: .1em;
+    margin-left: auto;
+    background-color: white;
+    color: #9e2a2b;
+    padding: .5em .8em;
+    cursor: pointer;
+  }
+ 
 }
 //queries
 @media  (max-width:1120px){

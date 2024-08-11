@@ -74,17 +74,26 @@ body.dark .whatsapp-icon::after, body.dark .personal-icons > a::after, body.dark
 }
 
 body {
+  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
   font-size: 1.6rem;
   font-weight: var(--light-font);
   font-family: "Noto Sans", sans-serif;
   height: 100vh;
   height: 100svh;
-  --theme-icon-size:clamp(22px,calc( 20px + 0.7vw), 35px);
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   /*ligt theme styles*/
   /*dark theme styles*/
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 body:has(.hamburger-icon.active) .sidebar {
   clip-path: inset(0px 0px 0px 0px);
+}
+body:has(dialog[open]) {
+  overflow: hidden;
 }
 body.light {
   background-color: var(--light-theme-color);
@@ -334,11 +343,6 @@ main {
   align-items: stretch;
   justify-content: start;
   height: fit-content;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-main::-webkit-scrollbar {
-  display: none;
 }
 main .particles-js-container {
   position: fixed;
@@ -525,7 +529,6 @@ header {
   height: fit-content;
   gap: 5em;
   padding: 0px 20px;
-  overflow: scroll;
   position: relative;
 }
 
@@ -884,6 +887,9 @@ dialog[open] {
   opacity: 1;
   pointer-events: all;
 }
+dialog[open] div {
+  transform: translate(0%, 0%);
+}
 dialog .wrapper {
   width: 40%;
   height: 100%;
@@ -1211,6 +1217,47 @@ footer {
 .whatsapp-icon:hover::after {
   opacity: 1;
   transform: translate(-50%, 0%);
+}
+
+.error-container {
+  margin-bottom: auto;
+  background-color: #9e2a2b;
+  width: 100%;
+  width: fit-content;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: start;
+  gap: 1em;
+  color: white;
+  border-radius: 5px;
+  font-size: var(--p-size);
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+.error-container div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+  width: 100%;
+}
+.error-container h2 {
+  font-size: var(--h2-size);
+}
+.error-container i {
+  font-size: var(--h2-size);
+}
+.error-container a {
+  font-size: 0.8em;
+  margin-top: 0.1em;
+  margin-left: auto;
+  background-color: white;
+  color: #9e2a2b;
+  padding: 0.5em 0.8em;
+  cursor: pointer;
 }
 
 @media (max-width: 1120px) {
