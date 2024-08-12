@@ -23,7 +23,7 @@
     <div class="wrapper">
       <div class="loading-container" style="visibility: hidden;"> 
         <svg  viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="m-path" d="M2 19V1L9 14.9091L16 1V19" stroke="#EEEEEE" stroke-width="2.5"/>
+          <path class="m-path" d="M2 19V1L9 14.9091L16 1V19"  stroke-width="2.5"/>
         </svg>  
         <div>
           <div class="name-part">alleck</div>
@@ -39,6 +39,21 @@
       </svg>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="none">
         <path d="M21.5 14.0784C20.3003 14.7189 18.9301 15.0821 17.4751 15.0821C12.7491 15.0821 8.91792 11.2509 8.91792 6.52485C8.91792 5.06986 9.28105 3.69968 9.92163 2.5C5.66765 3.49698 2.5 7.31513 2.5 11.8731C2.5 17.1899 6.8101 21.5 12.1269 21.5C16.6849 21.5 20.503 18.3324 21.5 14.0784Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <svg  viewBox="0 0 18 18">
+        <mask id="moon-mask-main-nav">
+          <rect x="0" y="0" fill="white"></rect>
+          <circle  cx="10" cy="2"  r="8" class="cover-circle"></circle>
+        </mask>
+        <circle cx="9" cy="9"  class="shape-icon" mask="url(#moon-mask-main-nav)" r="8"></circle>
+        <g>
+          <circle cx="17"  cy="9" r="1.3" style="--circle-num:0;"></circle>
+          <circle cx="13" cy="15.928203" r="1.3"  style="--circle-num:1;"></circle>
+          <circle cx="5" cy="15.928203" r="1.3" style="--circle-num:2;"></circle>
+          <circle cx="1" cy="9" r="1.3" style="--circle-num:3;"></circle>
+          <circle cx="5" cy="2.071797" r="1.3" style="--circle-num:4;"></circle>
+          <circle cx="13" cy="2.071797" r="1.3" style="--circle-num:5;"></circle>
+        </g>
       </svg>
     </button>
     <button class="hamburger-icon">
@@ -71,6 +86,21 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <path d="M21.5 14.0784C20.3003 14.7189 18.9301 15.0821 17.4751 15.0821C12.7491 15.0821 8.91792 11.2509 8.91792 6.52485C8.91792 5.06986 9.28105 3.69968 9.92163 2.5C5.66765 3.49698 2.5 7.31513 2.5 11.8731C2.5 17.1899 6.8101 21.5 12.1269 21.5C16.6849 21.5 20.503 18.3324 21.5 14.0784Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
+          <svg  viewBox="0 0 18 18">
+            <mask id="moon-mask-main-nav-sidebar">
+              <rect x="0" y="0" fill="white"></rect>
+              <circle  cx="10" cy="2"  r="8" class="cover-circle"></circle>
+            </mask>
+            <circle cx="9" cy="9"  class="shape-icon" mask="url(#moon-mask-main-nav-sidebar)" r="8"></circle>
+            <g>
+              <circle cx="17"  cy="9" r="1.3" style="--circle-num:0;"></circle>
+              <circle cx="13" cy="15.928203" r="1.3"  style="--circle-num:1;"></circle>
+              <circle cx="5" cy="15.928203" r="1.3" style="--circle-num:2;"></circle>
+              <circle cx="1" cy="9" r="1.3" style="--circle-num:3;"></circle>
+              <circle cx="5" cy="2.071797" r="1.3" style="--circle-num:4;"></circle>
+              <circle cx="13" cy="2.071797" r="1.3" style="--circle-num:5;"></circle>
+            </g>
+          </svg>
         </button>
       </li>
     </ul>
@@ -80,7 +110,10 @@
     <section class="content-container">
       <section id="home">
         <div class="img-personal-container">
-          <img  src="./main/images/Mohammed pfp.avif"  alt="Mohammed Malleck, Web Developer, smiling">
+          <picture>
+            <source srcset="./main/images/Mohammed-pfp.png" type="image/png" />
+            <img  src="./main/images/Mohammed-pfp.webp"  alt="Mohammed Malleck, Web Developer, smiling">
+          </picture>
         </div>
         <div class="personal-info-container">
           <svg class="top-left info-stroke" viewBox="0 0 100 1" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,9 +168,9 @@
               <div class="view-container">
                 <div class="swiper swiper-1">
                   <div class="swiper-wrapper">
-                    <img  class="swiper-slide" src="main/images/auto-repair/slide-1.avif" alt="auto repair site hero section">
-                    <img  class="swiper-slide" src="main/images/auto-repair/slide-2.avif" alt="auto repair site team section">
-                    <img  class="swiper-slide" src="main/images/auto-repair/slide-3.avif" alt="auto repair site choose us section">
+                    <img  class="swiper-slide" src="./main/images/auto-repair/slide-1.png" alt="auto repair site hero section">
+                    <img  class="swiper-slide" src="./main/images/auto-repair/slide-2.png" alt="auto repair site team section">
+                    <img  class="swiper-slide" src="./main/images/auto-repair/slide-3.png" alt="auto repair site choose us section">
                   </div>
                 </div>
                 <a href="#" aria-label="click to view live site">
@@ -158,9 +191,9 @@
               <div class="view-container">
                 <div class="swiper swiper-2">
                   <div class="swiper-wrapper">
-                    <img  class="swiper-slide" src="main/images/portfolio/slide-1.avif" alt="portfolio site hero section">
-                    <img  class="swiper-slide" src="main/images/portfolio/slide-2.avif" alt="portfolio site why me section">
-                    <img  class="swiper-slide" src="main/images/portfolio/slide-3.avif" alt="portfolio site work section">
+                    <img  class="swiper-slide" src="main/images/portfolio/slide-1.png" alt="portfolio site hero section">
+                    <img  class="swiper-slide" src="main/images/portfolio/slide-2.png" alt="portfolio site why me section">
+                    <img  class="swiper-slide" src="main/images/portfolio/slide-3.png" alt="portfolio site work section">
                   </div>
                 </div>
                 <a href="#" aria-label="click to view live site">
@@ -180,9 +213,9 @@
               <div class="view-container">
                 <div class="swiper swiper-3">
                   <div class="swiper-wrapper">
-                    <img  class="swiper-slide" src="main/images/educational-institue/slide-1.avif" alt="educational site hero section">
-                    <img  class="swiper-slide" src="main/images/educational-institue/slide-2.avif" alt="educational site activities section">
-                    <img  class="swiper-slide" src="main/images/educational-institue/slide-3.avif" alt="educational site courses section">
+                    <img  class="swiper-slide" src="main/images/educational-institue/slide-1.png" alt="educational site hero section">
+                    <img  class="swiper-slide" src="main/images/educational-institue/slide-2.png" alt="educational site activities section">
+                    <img  class="swiper-slide" src="main/images/educational-institue/slide-3.png" alt="educational site courses section">
                   </div>
                 </div>
                 <a href="#" aria-label="click to view live site">
@@ -376,45 +409,81 @@
           </button>
           <div class="container">
             <div class="img-container repair">
-              <img  src="main/images/auto-repair/home.avif" alt="home page of auto repair site">
+              <picture>
+                <source srcset="./main/images/auto-repair/home.png" type="image/png" />
+                <img  src="./main/images/auto-repair/home.webp" alt="home page of auto repair site">
+              </picture>
             </div>
             <div class="img-container repair">
-              <img  src="main/images/auto-repair/about.avif" alt="about page of auto repair site">
+              <picture>
+                <source srcset="./main/images/auto-repair/about.png" type="image/png" />
+                <img  src="./main/images/auto-repair/about.webp" alt="about page of auto repair site">
+              </picture>
             </div>
             <div class="img-container repair">
-              <img  src="main/images/auto-repair/services.avif" alt="services page of auto repair site">
+              <picture>
+                <source srcset="./main/images/auto-repair/services.png" type="image/png" />
+                <img  src="./main/images/auto-repair/services.webp" alt="services page of auto repair site">
+              </picture>
             </div>
             <div class="img-container last-img repair">
-              <img  src="main/images/auto-repair/contact.avif" alt="contact page of auto repair site">
+              <picture>
+                <source srcset="./main/images/auto-repair/contact.png" type="image/png" />
+                <img  src="./main/images/auto-repair/contact.webp" alt="contact page of auto repair site">
+              </picture>
             </div>
             <div class="img-container educational">
-              <img  src="main/images/educational-institue/home.avif" alt="home page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/home.png" type="image/png">
+                <img  src="./main/images/educational-institue/home.webp" alt="home page of educational institue site">
+              </picture>
             </div>
             <div class="img-container educational">
-              <img  src="main/images/educational-institue/about.avif" alt="about page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/about.png" type="image/png">
+                <img  src="./main/images/educational-institue/about.webp" alt="about page of educational institue site">
+              </picture>
             </div>
             <div class="img-container educational">
-              <img  src="main/images/educational-institue/latest-news.avif" alt="latest-news page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/latest-news.png" type="image/png">
+                <img  src="./main/images/educational-institue/latest-news.webp" alt="latest-news page of educational institue site">
+              </picture>
             </div>
             <div class="img-container educational">
-              <img  src="main/images/educational-institue/acadamic.avif" alt="academics page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/academic.png" type="image/png">
+                <img  src="./main/images/educational-institue/academic.webp" alt="academic page of educational institue site">
+              </picture>
             </div>
             <div class="img-container educational">
-              <img src="main/images/educational-institue/admission.avif" alt="admission page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/admission.png" type="image/png">
+                <img  src="./main/images/educational-institue/admission.webp" alt="admission page of educational institue site">
+              </picture>
             </div>
             <div class="img-container educational">
-              <img  src="main/images/educational-institue/activities.avif" alt="activities page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/activities.png" type="image/png">
+                <img  src="./main/images/educational-institue/activities.webp" alt="activities page of educational institue site">
+              </picture>
             </div>
             <div class="img-container last-img educational">
-              <img  src="main/images/educational-institue/contact.avif" alt="contact page of educational institue site">
+              <picture>
+                <source srcset="./main/images/educational-institue/contact.png" type="image/png">
+                <img  src="./main/images/educational-institue/contact.webp" alt="contact page of educational institue site">
+              </picture>
             </div>
             <div class="img-container last-img portfolio">
-              <img  src="main/images/portfolio/single-page.avif" alt="single page of portfolio site">
+              <picture>
+                <source srcset="./main/images/portfolio/single-page.png" type="image/png">
+                <img  src="./main/images/portfolio/single-page.webp" alt="single page of portfolio site">
+              </picture>
             </div>
-            <div class="scroll-btn-container">
-              <div>scroll</div>
-              <i class="fa-solid fa-chevron-down"></i>
-            </div>
+          </div>
+          <div class="scroll-btn-container">
+            <div>scroll</div>
+            <i class="fa-solid fa-chevron-down"></i>
           </div>
         </div>
       </dialog>

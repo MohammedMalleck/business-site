@@ -1,5 +1,5 @@
 import './styles.scss';
-
+import {noMotion , oldSafariVersion} from './check.js';
 //variables
 const previousViewportWidth = window.innerWidth;
 let slide = 0;
@@ -139,31 +139,35 @@ function initialCalculations(){
 
 };
 
-function handleThemeChange(playAudio,themeClass){
+function handleThemeChange(themeClass){
   const audioEl = document.querySelector('audio');
   const bodyEl = document.querySelector('body');
-  bodyEl.className = themeClass;
-  const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
-  const pJS = window.pJSDom[0].pJS;
-  pJS.particles.color.value = particlesColor;
-  pJS.particles.line_linked.color = particlesColor;
-  pJS.fn.particlesRefresh();
-  localStorage.setItem('theme',JSON.stringify(bodyEl.className));
+  bodyEl.classList.add(themeClass);
+  bodyEl.classList.remove(themeClass === "dark" ? "light" : "dark");
+  const particlesColor = bodyEl.classList.contains("dark") ? '#66FCF1' : '#1f2c5c';
+  if(window.pJSDom[0]){
+    const pJS = window.pJSDom[0].pJS;
+    pJS.particles.color.value = particlesColor;
+    pJS.particles.line_linked.color = particlesColor;
+    pJS.fn.particlesRefresh();
+    localStorage.setItem('theme',JSON.stringify(bodyEl.className));
+  }
 
   //play the sound effect 
-  if(playAudio && !navigator.maxTouchPoints > 0){
+  if(!navigator.maxTouchPoints > 0 && !oldSafariVersion){
     audioEl.pause();
     audioEl.currentTime = 0;
     audioEl.play();
   }
   document.querySelectorAll('.theme-icon-container').forEach(themeIconEl => {
-    themeIconEl.setAttribute("aria-label",`Switch to ${bodyEl.className === 'dark' ? 'Light' : 'Dark'} Mode`);
+    themeIconEl.setAttribute("aria-label",`Switch to ${bodyEl.classList.contains("dark") ? 'Light' : 'Dark'} Mode`);
   });
 };
 
 class CreateAutoSwiper{
   constructor(parentClass,delay,speed,loopCondition){
     new Swiper(parentClass,{
+      preloadImages  : false,
       direction: 'horizontal',
       loop: loopCondition,
       autoplay: {
@@ -209,11 +213,13 @@ function handleObserver(entries){
 }
 
 //functions & classes invoked/used
-displayParticles(3,document.querySelector('body').className === 'dark' ? '#EEEEEE' : '#222831');
+if(!oldSafariVersion && !noMotion){
+  displayParticles(3,document.querySelector('body').classList.contains("dark") ? '#EEEEEE' : '#222831');
+  setTimeout(()=>{
+    document.querySelector(".personal-info-container > h2").style = `--cursor-color:var(--cursor-theme-color);`;
+  },6800);
+}else document.querySelector("body").classList.add("lower-version");
 initialCalculations();
-setTimeout(()=>{
-  document.querySelector(".personal-info-container > h2").style = `--cursor-color:var(--cursor-theme-color);`;
-},6500);
 emailjs.init({
   publicKey: "9oK2xJrqwmKF0O2Dx",
 });
@@ -238,10 +244,12 @@ window.addEventListener('resize',()=>{
     const servicesContainerEl = document.querySelector('.services-container');
     const bodyEl = document.querySelector('body');
     const particlesColor = bodyEl.className === 'dark' ? '#66FCF1' : '#1f2c5c';
-    const pJS = window.pJSDom[0].pJS;
-    pJS.particles.color.value = particlesColor;
-    pJS.particles.line_linked.color = particlesColor;
-    pJS.fn.particlesRefresh();
+    if(window.pJSDom[0]){
+      const pJS = window.pJSDom[0].pJS;
+      pJS.particles.color.value = particlesColor;
+      pJS.particles.line_linked.color = particlesColor;
+      pJS.fn.particlesRefresh();
+    }
     //re-assign necessary calculations on reszing screen
     initialCalculations();
     if(servicesContainerEl.clientWidth > 514){
@@ -256,16 +264,27 @@ window.addEventListener('resize',()=>{
 
 document.querySelectorAll('.theme-icon-container').forEach(themeIconBtn => {
   themeIconBtn.addEventListener('click',()=>{
-    handleThemeChange(true,document.querySelector("body").className === "dark" ? "light" : "dark");
+    handleThemeChange(document.querySelector("body").classList.contains("dark") ? "light" : "dark");
   });
 });
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change' ,(e)=> {
   handleThemeChange(false,e.matches ? "dark" : "light");
 });
+window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener('change' ,(e)=> {
+ if(e.matches){
+    pJSDom[0].pJS.fn.vendors.destroypJS();
+    pJSDom = [];
+    document.querySelector("body").classList.add("lower-version");
+    document.querySelector(".personal-info-container > h2").removeAttribute("style");
+ }else{
+  displayParticles(3,document.querySelector('body').classList.contains("dark") ? '#EEEEEE' : '#222831');
+  document.querySelector("body").classList.remove("lower-version");
+ }
+});
 
 document.querySelector('.loading-page').addEventListener('animationstart',(e)=>{
-  if(e.animationName === 'clipAni') document.querySelector('main').style.visibility = 'visible';
+  if(e.animationName === 'clipAni' || "hidePage") document.querySelector('main').style.visibility = 'visible';
 });
 
 document.querySelector(".hamburger-icon").addEventListener("click",()=>{
@@ -276,6 +295,7 @@ document.querySelector(".hamburger-icon").addEventListener("click",()=>{
 
 document.querySelector('.dialog-btn').addEventListener('click',()=>{
   document.querySelector(".preview-project-dialog").close();
+  document.querySelector('.preview-project-dialog .container').scrollTop = 0;
 });
 document.querySelectorAll('.service-container .view-container').forEach(viewContainerEl => {
   viewContainerEl.addEventListener('click',()=>{
