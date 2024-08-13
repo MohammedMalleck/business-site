@@ -307,10 +307,6 @@ body{
     & .form-container button{
       color: var(--light-theme-color); 
       background-color: var(--dark-theme-color);
-      &::placeholder{
-        color: inherit; 
-        background-color: inherit;
-      }
       &::selection {
         background-color: var(--light-theme-color); 
         color: var(--dark-theme-color);
@@ -406,10 +402,6 @@ body{
     & .form-container button{
       color: var(--dark-theme-color); 
       background-color: var(--light-theme-color);
-      &::placeholder{
-        color: inherit; 
-        background-color: inherit;
-      }
       &::selection {
         background-color: var(--dark-theme-color); 
         color: var(--light-theme-color);
@@ -1194,6 +1186,7 @@ form{
   background-color: transparent;
   @include flex(column,end,start);
   gap: .8em;
+  font-weight: 500;
 
   & input,
   & textarea{
@@ -1210,6 +1203,9 @@ form{
     &::placeholder{
       font-family: inherit;
       font-size: inherit;
+      color: inherit; 
+      background-color: inherit;
+      opacity: 1;
     }
   }
   & input{

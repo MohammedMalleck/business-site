@@ -273,10 +273,6 @@ body.light .form-container textarea, body.light .form-container input, body.ligh
   color: var(--light-theme-color);
   background-color: var(--dark-theme-color);
 }
-body.light .form-container textarea::placeholder, body.light .form-container input::placeholder, body.light .form-container button::placeholder {
-  color: inherit;
-  background-color: inherit;
-}
 body.light .form-container textarea::selection, body.light .form-container input::selection, body.light .form-container button::selection {
   background-color: var(--light-theme-color);
   color: var(--dark-theme-color);
@@ -357,10 +353,6 @@ body.dark .service-container ::selection, body.dark .whyme-card ::selection {
 body.dark .form-container textarea, body.dark .form-container input, body.dark .form-container button {
   color: var(--dark-theme-color);
   background-color: var(--light-theme-color);
-}
-body.dark .form-container textarea::placeholder, body.dark .form-container input::placeholder, body.dark .form-container button::placeholder {
-  color: inherit;
-  background-color: inherit;
 }
 body.dark .form-container textarea::selection, body.dark .form-container input::selection, body.dark .form-container button::selection {
   background-color: var(--dark-theme-color);
@@ -1207,6 +1199,7 @@ form {
   align-items: end;
   justify-content: start;
   gap: 0.8em;
+  font-weight: 500;
 }
 form input, form textarea {
   width: 100%;
@@ -1222,6 +1215,9 @@ form input, form textarea {
 form input::placeholder, form textarea::placeholder {
   font-family: inherit;
   font-size: inherit;
+  color: inherit;
+  background-color: inherit;
+  opacity: 1;
 }
 form input {
   height: 3em;
