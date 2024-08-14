@@ -28,6 +28,6 @@ were also used.
 ## Acknowledgements
 
 - Thanks to [@RGHANILOO](https://github.com/RGHANILOO) who helped me re-design this site. Initially the project was going something like [this](https://github.com/MohammedMalleck/M-Malleck-Business) , after some of his reviews I started from scratch(again).
-- Thanks to [@goestav](https://github.com/goestav) in helping to acheive cross-browser compatibility. His [gitlab acc](https://gitlab.com/goestav/)
+- Thanks to [@goestav](https://github.com/goestav) in helping to acheive cross-browser compatibility. His [gitlab account](https://gitlab.com/goestav/)
   
   
