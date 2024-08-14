@@ -293,12 +293,9 @@ document.querySelector(".hamburger-icon").addEventListener("click",()=>{
   hamburgerIcon.setAttribute("aria-label",`click to ${hamburgerIcon.classList.contains("active") ? 'hide' : 'expand'} sidebar`);
 });
 
-document.querySelector('.dialog-btn').addEventListener('click',()=>{
-  document.querySelector(".preview-project-dialog").close();
-  document.querySelector('.preview-project-dialog .container').scrollTop = 0;
-});
+//dialog
 document.querySelectorAll('.service-container .view-container').forEach(viewContainerEl => {
-  viewContainerEl.addEventListener('click',()=>{
+  viewContainerEl.addEventListener('click',(e)=>{
     document.querySelector(".preview-project-dialog").showModal();
     document.querySelector(".preview-project-dialog .container").className =`container ${(viewContainerEl.parentElement.classList[1])}`;
     document.querySelector('.preview-project-dialog .wrapper').removeAttribute("style");   
@@ -307,11 +304,24 @@ document.querySelectorAll('.service-container .view-container').forEach(viewCont
       document.querySelector('.scroll-btn-container').classList.add("hide");
       document.querySelector('.preview-project-dialog .wrapper').style.height = "fit-content";
     }
+    e.stopPropagation();
   });
 });
 document.querySelector('.preview-project-dialog .container').addEventListener('scroll',(e)=>{
   const scrollBtnEl = document.querySelector('.scroll-btn-container');
   e.target.scrollTop > 150 ? scrollBtnEl.classList.add("hide") : scrollBtnEl.classList.remove("hide");
+});
+
+document.querySelector("dialog .container").addEventListener("click",(e)=>{
+  e.stopPropagation();
+});
+document.querySelector(".scroll-btn-container").addEventListener("click",(e)=>{
+  e.stopPropagation();
+});
+
+document.querySelector("body").addEventListener("click",()=>{
+  document.querySelector(".preview-project-dialog").close();
+  document.querySelector('.preview-project-dialog .container').scrollTop = 0;
 });
 //right slide button
 document.querySelector('.slider-arrow-right').addEventListener('click',()=>{
@@ -351,4 +361,4 @@ document.querySelector("form").addEventListener("submit",(e)=>{
     //show error section div here 
     document.querySelector("dialog.error").showModal();
   });
-})
+});
