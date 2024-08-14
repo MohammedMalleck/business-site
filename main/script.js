@@ -125,7 +125,7 @@ function initialCalculations(){
   const svgLeftPx = (loadingContainer.clientWidth / 2) - (loadingContainer.querySelector("svg").clientWidth / 2);
   loadingContainer.style = `--svg-left:${svgLeftPx}px;`
   const pathEl = loadingContainer.querySelector('svg > path');
-  pathEl.style = `--length:${Math.round(pathEl.getTotalLength())}`;  
+  pathEl.style = `--length:${Math.round(pathEl.getTotalLength()) + 3}`;  
 
   document.querySelectorAll('.info-stroke path').forEach(pathEl => {
     pathEl.style = `--length:${pathEl.getTotalLength()}px;`;
