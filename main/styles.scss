@@ -129,7 +129,7 @@ body{
     & .loading-container svg{
       transform: translateX(var(--svg-left));
       animation: moveDefault 1s ease forwards;
-      animation-delay: 2s;
+      animation-delay: 2.5s;
       & path{
         stroke-dasharray: calc(var(--length) + 3);
         stroke-dashoffset: calc(var(--length) + 3);
@@ -141,7 +141,7 @@ body{
     & .loading-container .name-part{
       transform: translateX(-120%);
       animation: moveDefault 1s ease forwards;
-      animation-delay: 2s;
+      animation-delay: 2.5s;
     }
 
     & .theme-icon-container {

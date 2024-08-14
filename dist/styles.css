@@ -131,7 +131,7 @@ body:not(.lower-version) .loading-page {
 body:not(.lower-version) .loading-container svg {
   transform: translateX(var(--svg-left));
   animation: moveDefault 1s ease forwards;
-  animation-delay: 2s;
+  animation-delay: 2.5s;
 }
 body:not(.lower-version) .loading-container svg path {
   stroke-dasharray: calc(var(--length) + 3);
@@ -142,7 +142,7 @@ body:not(.lower-version) .loading-container svg path {
 body:not(.lower-version) .loading-container .name-part {
   transform: translateX(-120%);
   animation: moveDefault 1s ease forwards;
-  animation-delay: 2s;
+  animation-delay: 2.5s;
 }
 body:not(.lower-version) .theme-icon-container svg:nth-child(1), body:not(.lower-version) .theme-icon-container svg:nth-child(2) {
   display: none;
