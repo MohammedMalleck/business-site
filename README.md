@@ -9,22 +9,23 @@ This is a business website for a freelance Web Developer. It was crafted to attr
 precence. Figma was used for creating the design and technologies like html , scss and js were used to bring it to life. Webpack bunlder along with some libraries 
 were also used.
 
+<br>
+
 ## How can you help?
 
 - Create issues that contribute to negative(and huge) user experience.
 - Fork the repository and create pull requests of refactored code.
+
+<br>
 
 ## Future Updates
 
 - Making the website multi language(English & Arabic).
 - Displaying a note that slides in, informing the user they can view a better version (e.g., switching to Chrome or disabling reduce motion) when using lower versions of Safari (< 16.6) or when reduce motion is enabled.
 
+<br>
+
 ## Acknowledgements
 
 - Thanks to [@RGHANILOO](https://github.com/RGHANILOO) who helped me re-design this site. Initially the project was going something like [this](https://github.com/MohammedMalleck/M-Malleck-Business) , after some of his reviews I started from scratch(again).
   
-
-
-
-
-
