@@ -3,6 +3,10 @@ import {noMotion , oldSafariVersion} from './check.js';
 //variables
 const previousViewportWidth = window.innerWidth;
 let slide = 0;
+let autoScrollRight = true;
+let autoScrollLeft;
+let intervalId;
+let timeoutId;
 const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin :"0px" , threshold : 0.01});
 //function & classes defined
 function displayParticles(speed,color){
@@ -188,6 +192,42 @@ function handleServicesSlide(servicesLength,isLeft){
   const scrollPercentage = (100 * slide);
   servicesContainerEl.style = `--scroll-value:calc((${scrollPercentage}% + ${gapPx})* -1);`;
 };
+function handleLeftScroll(){
+  const servicesContainerEl = document.querySelector('.services-container');
+  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
+  handleServicesSlide(servicesLength,true);
+
+  if(slide < 1) document.querySelector('.slider-arrow-left').style.display = "none";
+  if(slide < servicesLength) document.querySelector('.slider-arrow-right').style.display = "flex"; 
+}
+function handleRightScroll(){
+  const servicesContainerEl = document.querySelector('.services-container');
+  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
+  handleServicesSlide(servicesLength,false);
+
+  if(slide > 0) document.querySelector('.slider-arrow-left').style.display = "flex";
+  if(slide === servicesLength) document.querySelector('.slider-arrow-right').style.display = "none"; 
+}
+
+function autoSlide(){
+  clearInterval(intervalId);
+  const servicesContainerEl = document.querySelector('.services-container');
+  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
+  if(getComputedStyle(document.querySelector('.slide-arrow-container')).display === "none") return;
+  intervalId = setInterval(()=>{
+    if (slide < servicesLength && !autoScrollLeft){
+      handleRightScroll();
+      autoScrollRight = false;
+    }else if(!autoScrollRight && slide !== 0){
+      autoScrollLeft = true;
+      handleLeftScroll();
+    }else if(slide === 0){
+      autoScrollRight = true;
+      autoScrollLeft = false;
+    }
+  },6000);
+};
+
 
 function handleObserver(entries){
   entries.forEach(entry => {
@@ -213,6 +253,10 @@ function handleObserver(entries){
 }
 
 //functions & classes invoked/used
+setTimeout(()=>{
+  autoSlide();
+},5000);
+
 if(!oldSafariVersion && !noMotion){
   displayParticles(3,document.querySelector('body').classList.contains("dark") ? '#EEEEEE' : '#222831');
   setTimeout(()=>{
@@ -225,7 +269,7 @@ emailjs.init({
 });
 
 document.querySelectorAll('.view-container .swiper').forEach(swiperEl => {
-  new CreateAutoSwiper(`.${swiperEl.classList[1]}`,3000,1000,true);
+  new CreateAutoSwiper(`.${swiperEl.classList[1]}`,2000,1000,true);
 });
 //observer
 document.querySelectorAll('.service-container').forEach(serviceContainerEl => {
@@ -259,6 +303,7 @@ window.addEventListener('resize',()=>{
       document.querySelector('.slider-arrow-left').style.display = "none";
       document.querySelector('.slider-arrow-right').style.display = "flex";
     }
+    autoSlide();
   }
 });
 
@@ -296,6 +341,7 @@ document.querySelector(".hamburger-icon").addEventListener("click",()=>{
 //dialog
 document.querySelectorAll('.service-container .view-container').forEach(viewContainerEl => {
   viewContainerEl.addEventListener('click',(e)=>{
+    if (e.target.parentElement.tagName === "A") return;
     document.querySelector(".preview-project-dialog").showModal();
     document.querySelector(".preview-project-dialog .container").className =`container ${(viewContainerEl.parentElement.classList[1])}`;
     document.querySelector('.preview-project-dialog .wrapper').removeAttribute("style");   
@@ -304,7 +350,6 @@ document.querySelectorAll('.service-container .view-container').forEach(viewCont
       document.querySelector('.scroll-btn-container').classList.add("hide");
       document.querySelector('.preview-project-dialog .wrapper').style.height = "fit-content";
     }
-    e.stopPropagation();
   });
 });
 document.querySelector('.preview-project-dialog .container').addEventListener('scroll',(e)=>{
@@ -323,25 +368,26 @@ document.querySelector("body").addEventListener("click",()=>{
   document.querySelector(".preview-project-dialog").close();
   document.querySelector('.preview-project-dialog .container').scrollTop = 0;
 });
+
 //right slide button
 document.querySelector('.slider-arrow-right').addEventListener('click',()=>{
-  const servicesContainerEl = document.querySelector('.services-container');
-  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
-  handleServicesSlide(servicesLength,false);
+  clearInterval(intervalId);
+  clearTimeout(timeoutId);
+  handleRightScroll();
 
-  if(slide > 0) document.querySelector('.slider-arrow-left').style.display = "flex";
-  if(slide === servicesLength) document.querySelector('.slider-arrow-right').style.display = "none"; 
-  
+  timeoutId = setTimeout(()=>{
+    autoSlide();
+  },3000);
 });
 //left slide button
 document.querySelector('.slider-arrow-left').addEventListener('click',()=>{
-  const servicesContainerEl = document.querySelector('.services-container');
-  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
-  handleServicesSlide(servicesLength,true);
+  clearInterval(intervalId);
+  clearTimeout(timeoutId);
+  handleLeftScroll();
 
-  if(slide < 1) document.querySelector('.slider-arrow-left').style.display = "none";
-  if(slide < servicesLength) document.querySelector('.slider-arrow-right').style.display = "flex"; 
-  
+  timeoutId = setTimeout(()=>{
+    autoSlide();
+  },3000);
 });
 
 document.querySelector("form").addEventListener("submit",(e)=>{

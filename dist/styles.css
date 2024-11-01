@@ -269,6 +269,9 @@ body.light .service-container ::selection, body.light .whyme-card ::selection {
   background-color: var(--light-theme-color);
   color: var(--dark-theme-color);
 }
+body.light .service-container .swiper.dark {
+  display: none;
+}
 body.light .form-container textarea, body.light .form-container input, body.light .form-container button {
   color: var(--light-theme-color);
   background-color: var(--dark-theme-color);
@@ -349,6 +352,9 @@ body.dark .service-container, body.dark .whyme-card {
 body.dark .service-container ::selection, body.dark .whyme-card ::selection {
   background-color: var(--dark-theme-color);
   color: var(--light-theme-color);
+}
+body.dark .service-container .swiper.light {
+  display: none;
 }
 body.dark .form-container textarea, body.dark .form-container input, body.dark .form-container button {
   color: var(--dark-theme-color);
@@ -914,7 +920,7 @@ header {
 }
 
 .view-container {
-  border-radius: inherit;
+  border-radius: 1em;
   width: 100%;
   height: clamp(130px, 120px + 7vw, 210px);
   background-color: white;
@@ -950,6 +956,7 @@ header {
   padding: 1% 0;
   z-index: 2;
   cursor: pointer;
+  margin-top: auto;
 }
 .view-container a {
   display: inline-block;
@@ -1421,7 +1428,7 @@ footer {
     overflow: hidden;
   }
   .service-container {
-    height: 100%;
+    height: fit-content;
     width: 70cqw;
     justify-content: space-between;
   }

@@ -302,6 +302,9 @@ body{
         color: var(--dark-theme-color);
       }
     }
+    & .service-container .swiper.dark{
+      display: none;
+    }
     & .form-container textarea,
     & .form-container input,
     & .form-container button{
@@ -396,6 +399,9 @@ body{
         background-color: var(--dark-theme-color); 
         color: var(--light-theme-color);
       }
+    }
+    & .service-container .swiper.light{
+      display: none;
     }
     & .form-container textarea,
     & .form-container input,
@@ -936,7 +942,7 @@ header{
   }
 }
 .view-container{
-  border-radius: inherit;
+  border-radius: 1em;
   width: 100%;
   height: clamp(130px,120px + 7vw,210px);
   background-color: white;
@@ -971,6 +977,7 @@ header{
     padding: 1% 0;
     z-index: 2;
     cursor: pointer;
+    margin-top: auto;
   }
   & a{
     display: inline-block;
@@ -1406,7 +1413,7 @@ footer{
     overflow:hidden;
   }
   .service-container{
-    height: 100%;
+    height: fit-content;
     width:calc(100cqw - 30cqw);
     justify-content: space-between;
   }
