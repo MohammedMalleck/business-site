@@ -5,8 +5,7 @@
 
 # Overview
 
-This is a business website for a freelance Web Developer. It was crafted to attract potential non-technical clients and help them create a online
-precence. Figma was used for creating the design and technologies like html , scss and js were used to bring it to life. Webpack bunlder along with some libraries 
+This is a business website for a freelance Web Developer. It was crafted to attract potential clients and help them create a online precence. Figma was used for creating the design and technologies like html , scss and js were used to bring it to life. Webpack bunlder along with some libraries 
 were also used.
 
 <br>
@@ -15,6 +14,12 @@ were also used.
 
 - Create issues that contribute to negative(and huge) user experience.
 - Fork the repository and create pull requests of refactored code.
+
+<br>
+
+## Recent Updates
+
+- Replaced the Services section with a Projects section. The previous Services section created the impression that I only build websites for a specific niche, which is not the case. The new Projects section addresses this by showcasing my recent work along with client testimonials.
 
 <br>
 

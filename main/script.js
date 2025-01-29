@@ -2,14 +2,10 @@ import './styles.scss';
 import {noMotion , oldSafariVersion} from './check.js';
 //variables
 const previousViewportWidth = window.innerWidth;
-let slide = 0;
-let autoScrollRight = true;
-let autoScrollLeft;
-let intervalId;
-let timeoutId;
 const observer = new IntersectionObserver(handleObserver,{root : null , rootMargin :"0px" , threshold : 0.01});
 //function & classes defined
 function displayParticles(speed,color){
+  
   particlesJS("particles-js",
     {
        "particles": {
@@ -179,55 +175,32 @@ class CreateAutoSwiper{
         pauseOnMouseEnter: false,
         disableOnInteraction: false,
       },
-      speed: speed
+      speed: speed,
+      navigation: {
+        nextEl: '.swiper-button-next-custom',
+        prevEl: '.swiper-button-prev-custom',
+      },
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        645: {
+          slidesPerView: 2, 
+          spaceBetween: 20,
+        },
+        1440: {
+          slidesPerView: 3, 
+          spaceBetween: 30,
+        }
+      },    
     });
   };
 };
-
-function handleServicesSlide(servicesLength,isLeft){
-  const servicesContainerEl = document.querySelector('.services-container');
-  const gap = parseFloat(getComputedStyle(servicesContainerEl).getPropertyValue('gap'));
-  slide = !isLeft ? (slide < servicesLength ? slide + 1 : 0) : (slide > 0 ? slide - 1 : '');
-  const gapPx = (gap * slide) + 'px';
-  const scrollPercentage = (100 * slide);
-  servicesContainerEl.style = `--scroll-value:calc((${scrollPercentage}% + ${gapPx})* -1);`;
-};
-function handleLeftScroll(){
-  const servicesContainerEl = document.querySelector('.services-container');
-  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
-  handleServicesSlide(servicesLength,true);
-
-  if(slide < 1) document.querySelector('.slider-arrow-left').style.display = "none";
-  if(slide < servicesLength) document.querySelector('.slider-arrow-right').style.display = "flex"; 
-}
-function handleRightScroll(){
-  const servicesContainerEl = document.querySelector('.services-container');
-  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
-  handleServicesSlide(servicesLength,false);
-
-  if(slide > 0) document.querySelector('.slider-arrow-left').style.display = "flex";
-  if(slide === servicesLength) document.querySelector('.slider-arrow-right').style.display = "none"; 
-}
-
-function autoSlide(){
-  clearInterval(intervalId);
-  const servicesContainerEl = document.querySelector('.services-container');
-  const servicesLength = servicesContainerEl.querySelectorAll('.service-container').length - 1;
-  if(getComputedStyle(document.querySelector('.slide-arrow-container')).display === "none") return;
-  intervalId = setInterval(()=>{
-    if (slide < servicesLength && !autoScrollLeft){
-      handleRightScroll();
-      autoScrollRight = false;
-    }else if(!autoScrollRight && slide !== 0){
-      autoScrollLeft = true;
-      handleLeftScroll();
-    }else if(slide === 0){
-      autoScrollRight = true;
-      autoScrollLeft = false;
-    }
-  },6000);
-};
-
+new CreateAutoSwiper(`.swiper`,3000,1500,true);
 
 function handleObserver(entries){
   entries.forEach(entry => {
@@ -252,10 +225,7 @@ function handleObserver(entries){
   });
 }
 
-//functions & classes invoked/used
-setTimeout(()=>{
-  autoSlide();
-},5000);
+
 
 if(!oldSafariVersion && !noMotion){
   displayParticles(3,document.querySelector('body').classList.contains("dark") ? '#EEEEEE' : '#222831');
@@ -268,13 +238,7 @@ emailjs.init({
   publicKey: "9oK2xJrqwmKF0O2Dx",
 });
 
-document.querySelectorAll('.view-container .swiper').forEach(swiperEl => {
-  new CreateAutoSwiper(`.${swiperEl.classList[1]}`,2000,1000,true);
-});
-//observer
-document.querySelectorAll('.service-container').forEach(serviceContainerEl => {
-  observer.observe(serviceContainerEl);
-});
+
 document.querySelectorAll('.whyme-card').forEach(whymeEl => {
   observer.observe(whymeEl);
 });
@@ -296,14 +260,6 @@ window.addEventListener('resize',()=>{
     }
     //re-assign necessary calculations on reszing screen
     initialCalculations();
-    if(servicesContainerEl.clientWidth > 514){
-      servicesContainerEl.style = `--scroll-value:0%;`;
-      slide = 0;
-    }else if(!slide){
-      document.querySelector('.slider-arrow-left').style.display = "none";
-      document.querySelector('.slider-arrow-right').style.display = "flex";
-    }
-    autoSlide();
   }
 });
 
@@ -338,57 +294,6 @@ document.querySelector(".hamburger-icon").addEventListener("click",()=>{
   hamburgerIcon.setAttribute("aria-label",`click to ${hamburgerIcon.classList.contains("active") ? 'hide' : 'expand'} sidebar`);
 });
 
-//dialog
-document.querySelectorAll('.service-container .view-container').forEach(viewContainerEl => {
-  viewContainerEl.addEventListener('click',(e)=>{
-    if (e.target.parentElement.tagName === "A") return;
-    document.querySelector(".preview-project-dialog").showModal();
-    document.querySelector(".preview-project-dialog .container").className =`container ${(viewContainerEl.parentElement.classList[1])}`;
-    document.querySelector('.preview-project-dialog .wrapper').removeAttribute("style");   
-    document.querySelector('.scroll-btn-container').classList.remove("hide");
-    if(document.querySelector('.preview-project-dialog .wrapper .container').scrollHeight < window.innerHeight){
-      document.querySelector('.scroll-btn-container').classList.add("hide");
-      document.querySelector('.preview-project-dialog .wrapper').style.height = "fit-content";
-    }
-  });
-});
-document.querySelector('.preview-project-dialog .container').addEventListener('scroll',(e)=>{
-  const scrollBtnEl = document.querySelector('.scroll-btn-container');
-  e.target.scrollTop > 150 ? scrollBtnEl.classList.add("hide") : scrollBtnEl.classList.remove("hide");
-});
-
-document.querySelector("dialog .container").addEventListener("click",(e)=>{
-  e.stopPropagation();
-});
-document.querySelector(".scroll-btn-container").addEventListener("click",(e)=>{
-  e.stopPropagation();
-});
-
-document.querySelector("body").addEventListener("click",()=>{
-  document.querySelector(".preview-project-dialog").close();
-  document.querySelector('.preview-project-dialog .container').scrollTop = 0;
-});
-
-//right slide button
-document.querySelector('.slider-arrow-right').addEventListener('click',()=>{
-  clearInterval(intervalId);
-  clearTimeout(timeoutId);
-  handleRightScroll();
-
-  timeoutId = setTimeout(()=>{
-    autoSlide();
-  },3000);
-});
-//left slide button
-document.querySelector('.slider-arrow-left').addEventListener('click',()=>{
-  clearInterval(intervalId);
-  clearTimeout(timeoutId);
-  handleLeftScroll();
-
-  timeoutId = setTimeout(()=>{
-    autoSlide();
-  },3000);
-});
 
 document.querySelector("form").addEventListener("submit",(e)=>{
   e.preventDefault();
