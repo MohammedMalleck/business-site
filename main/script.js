@@ -176,10 +176,6 @@ class CreateAutoSwiper{
         disableOnInteraction: false,
       },
       speed: speed,
-      navigation: {
-        nextEl: '.swiper-button-next-custom',
-        prevEl: '.swiper-button-prev-custom',
-      },
       scrollbar: {
         el: '.swiper-scrollbar',
       },
